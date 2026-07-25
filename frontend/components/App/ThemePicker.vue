@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <div class="homebox grid grid-cols-1 gap-4 font-sans sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+  <div class="homebot grid grid-cols-1 gap-4 font-sans sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
     <div
       v-for="theme in themes"
       :key="theme.value"

@@ -5,8 +5,8 @@ import (
 	"embed"
 	"fmt"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 //go:embed all:postgres

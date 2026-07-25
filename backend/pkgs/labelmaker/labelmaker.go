@@ -1,4 +1,4 @@
-// Package labelmaker provides functionality for generating and printing labels for items, locations and assets stored in Homebox
+// Package labelmaker provides functionality for generating and printing labels for items, locations and assets stored in HomeBot
 package labelmaker
 
 import (
@@ -21,8 +21,8 @@ import (
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/skip2/go-qrcode"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/gofont/gobold"
 	"golang.org/x/image/font/gofont/gomedium"
@@ -390,7 +390,7 @@ func fetchLabelFromURL(w io.Writer, serviceURL string, params *GenerateParameter
 	}
 
 	// Set custom headers
-	req.Header.Set("User-Agent", "Homebox-LabelMaker/1.0")
+	req.Header.Set("User-Agent", "HomeBot-LabelMaker/1.0")
 	req.Header.Set("Accept", "image/*")
 
 	// Make HTTP request to the label service

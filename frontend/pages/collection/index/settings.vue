@@ -15,7 +15,7 @@
 
   const { t } = useI18n();
 
-  useHead({ title: `HomeBox | ${t("collection.tabs.settings")}` });
+  useHead({ title: `HomeBot | ${t("collection.tabs.settings")}` });
 
   const api = useUserApi();
   const { selectedCollection, load: reloadCollections } = useCollections();

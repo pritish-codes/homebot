@@ -5,7 +5,7 @@ import (
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema/mixins"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema/mixins"
 )
 
 type MaintenanceEntry struct {
@@ -33,6 +33,11 @@ func (MaintenanceEntry) Fields() []ent.Field {
 			Optional(),
 		field.Float("cost").
 			Default(0.0),
+		field.Bool("is_recurring").
+			Default(false),
+		field.Int("recurrence_interval_months").
+			Optional().
+			Positive(),
 	}
 }
 

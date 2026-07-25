@@ -7,11 +7,11 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/maintenanceentry"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/types"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/maintenanceentry"
+	"github.com/pritish-codes/homebot/backend/internal/data/types"
 )
 
 // MaintenanceEntryRepository is a repository for maintenance entries that are
@@ -22,43 +22,55 @@ type MaintenanceEntryRepository struct {
 }
 
 type MaintenanceEntryCreate struct {
-	CompletedDate types.Date `json:"completedDate"`
-	ScheduledDate types.Date `json:"scheduledDate"`
-	Name          string     `json:"name"          validate:"required"`
-	Description   string     `json:"description"`
-	Cost          float64    `json:"cost,string"`
+	CompletedDate            types.Date `json:"completedDate"`
+	ScheduledDate            types.Date `json:"scheduledDate"`
+	Name                     string     `json:"name"          validate:"required"`
+	Description              string     `json:"description"`
+	Cost                     float64    `json:"cost,string"`
+	IsRecurring              bool       `json:"isRecurring"`
+	RecurrenceIntervalMonths int        `json:"recurrenceIntervalMonths"`
 }
 
 func (mc MaintenanceEntryCreate) Validate() error {
 	if mc.CompletedDate.Time().IsZero() && mc.ScheduledDate.Time().IsZero() {
 		return errors.New("either completedDate or scheduledDate must be set")
 	}
+	if mc.IsRecurring && mc.RecurrenceIntervalMonths <= 0 {
+		return errors.New("recurrenceIntervalMonths must be greater than zero when isRecurring is true")
+	}
 	return nil
 }
 
 type MaintenanceEntryUpdate struct {
-	CompletedDate types.Date `json:"completedDate"`
-	ScheduledDate types.Date `json:"scheduledDate"`
-	Name          string     `json:"name"`
-	Description   string     `json:"description"`
-	Cost          float64    `json:"cost,string"`
+	CompletedDate            types.Date `json:"completedDate"`
+	ScheduledDate            types.Date `json:"scheduledDate"`
+	Name                     string     `json:"name"`
+	Description              string     `json:"description"`
+	Cost                     float64    `json:"cost,string"`
+	IsRecurring              bool       `json:"isRecurring"`
+	RecurrenceIntervalMonths int        `json:"recurrenceIntervalMonths"`
 }
 
 func (mu MaintenanceEntryUpdate) Validate() error {
 	if mu.CompletedDate.Time().IsZero() && mu.ScheduledDate.Time().IsZero() {
 		return errors.New("either completedDate or scheduledDate must be set")
 	}
+	if mu.IsRecurring && mu.RecurrenceIntervalMonths <= 0 {
+		return errors.New("recurrenceIntervalMonths must be greater than zero when isRecurring is true")
+	}
 	return nil
 }
 
 type (
 	MaintenanceEntry struct {
-		ID            uuid.UUID  `json:"id"`
-		CompletedDate types.Date `json:"completedDate"`
-		ScheduledDate types.Date `json:"scheduledDate"`
-		Name          string     `json:"name"`
-		Description   string     `json:"description"`
-		Cost          float64    `json:"cost,string"`
+		ID                       uuid.UUID  `json:"id"`
+		CompletedDate            types.Date `json:"completedDate"`
+		ScheduledDate            types.Date `json:"scheduledDate"`
+		Name                     string     `json:"name"`
+		Description              string     `json:"description"`
+		Cost                     float64    `json:"cost,string"`
+		IsRecurring              bool       `json:"isRecurring"`
+		RecurrenceIntervalMonths int        `json:"recurrenceIntervalMonths"`
 	}
 )
 
@@ -69,12 +81,14 @@ var (
 
 func mapMaintenanceEntry(entry *ent.MaintenanceEntry) MaintenanceEntry {
 	return MaintenanceEntry{
-		ID:            entry.ID,
-		CompletedDate: types.Date(entry.Date),
-		ScheduledDate: types.Date(entry.ScheduledDate),
-		Name:          entry.Name,
-		Description:   entry.Description,
-		Cost:          entry.Cost,
+		ID:                       entry.ID,
+		CompletedDate:            types.Date(entry.Date),
+		ScheduledDate:            types.Date(entry.ScheduledDate),
+		Name:                     entry.Name,
+		Description:              entry.Description,
+		Cost:                     entry.Cost,
+		IsRecurring:              entry.IsRecurring,
+		RecurrenceIntervalMonths: entry.RecurrenceIntervalMonths,
 	}
 }
 
@@ -114,39 +128,74 @@ func (r *MaintenanceEntryRepository) Create(ctx context.Context, gid, itemID uui
 		return MaintenanceEntry{}, &ent.NotFoundError{}
 	}
 
-	item, err := r.db.MaintenanceEntry.Create().
+	create := r.db.MaintenanceEntry.Create().
 		SetEntityID(itemID).
 		SetDate(input.CompletedDate.Time()).
 		SetScheduledDate(input.ScheduledDate.Time()).
 		SetName(input.Name).
 		SetDescription(input.Description).
 		SetCost(input.Cost).
-		Save(ctx)
+		SetIsRecurring(input.IsRecurring)
+
+	if input.IsRecurring && input.RecurrenceIntervalMonths > 0 {
+		create = create.SetRecurrenceIntervalMonths(input.RecurrenceIntervalMonths)
+	}
+
+	item, err := create.Save(ctx)
 
 	return mapMaintenanceEntryErr(item, err)
 }
 
 func (r *MaintenanceEntryRepository) Update(ctx context.Context, gid uuid.UUID, id uuid.UUID, input MaintenanceEntryUpdate) (MaintenanceEntry, error) {
-	owned, err := r.db.MaintenanceEntry.Query().Where(
+	existing, err := r.db.MaintenanceEntry.Query().Where(
 		maintenanceentry.ID(id),
 		maintenanceentry.HasEntityWith(entity.HasGroupWith(group.ID(gid))),
-	).Exist(ctx)
+	).Only(ctx)
 	if err != nil {
+		if ent.IsNotFound(err) {
+			return MaintenanceEntry{}, &ent.NotFoundError{}
+		}
 		return MaintenanceEntry{}, err
 	}
-	if !owned {
-		return MaintenanceEntry{}, &ent.NotFoundError{}
-	}
 
-	item, err := r.db.MaintenanceEntry.UpdateOneID(id).
+	update := r.db.MaintenanceEntry.UpdateOneID(id).
 		SetDate(input.CompletedDate.Time()).
 		SetScheduledDate(input.ScheduledDate.Time()).
 		SetName(input.Name).
 		SetDescription(input.Description).
 		SetCost(input.Cost).
-		Save(ctx)
+		SetIsRecurring(input.IsRecurring)
 
-	return mapMaintenanceEntryErr(item, err)
+	if input.IsRecurring && input.RecurrenceIntervalMonths > 0 {
+		update = update.SetRecurrenceIntervalMonths(input.RecurrenceIntervalMonths)
+	} else {
+		update = update.ClearRecurrenceIntervalMonths()
+	}
+
+	item, err := update.Save(ctx)
+	if err != nil {
+		return MaintenanceEntry{}, err
+	}
+
+	// Only spawn the next occurrence the moment an entry transitions from
+	// unset to completed, never on subsequent edits to an already-completed
+	// entry, so repeated PUTs don't fan out duplicate follow-up entries.
+	justCompleted := existing.Date.IsZero() && !input.CompletedDate.Time().IsZero()
+	if justCompleted && existing.IsRecurring && existing.RecurrenceIntervalMonths > 0 {
+		next := input.CompletedDate.Time().AddDate(0, existing.RecurrenceIntervalMonths, 0)
+		_, err := r.Create(ctx, gid, existing.EntityID, MaintenanceEntryCreate{
+			ScheduledDate:            types.Date(next),
+			Name:                     existing.Name,
+			Description:              existing.Description,
+			IsRecurring:              true,
+			RecurrenceIntervalMonths: existing.RecurrenceIntervalMonths,
+		})
+		if err != nil {
+			return MaintenanceEntry{}, err
+		}
+	}
+
+	return mapMaintenanceEntry(item), nil
 }
 
 func (r *MaintenanceEntryRepository) GetMaintenanceByItemID(ctx context.Context, groupID, itemID uuid.UUID, filters MaintenanceFilters) ([]MaintenanceEntryWithDetails, error) {

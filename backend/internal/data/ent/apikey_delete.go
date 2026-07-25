@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/apikey"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/apikey"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
 )
 
 // APIKeyDelete is the builder for deleting a APIKey entity.

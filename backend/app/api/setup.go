@@ -10,12 +10,12 @@ import (
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/pressly/goose/v3"
+	"github.com/pritish-codes/homebot/backend/internal/core/currencies"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/migrations"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/otel"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/currencies"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/migrations"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/otel"
 )
 
 // setupDatabase prepares the storage directory, validates the driver/SSL

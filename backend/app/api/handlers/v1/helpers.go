@@ -5,11 +5,11 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
-// GetHBURL determines the base URL of the Homebox instance using the following priority:
+// GetHBURL determines the base URL of the HomeBot instance using the following priority:
 // 1. Configured hostname from Options.Hostname
 // 2. X-Forwarded headers (if TrustProxy is enabled)
 // 3. Referer header

@@ -20,17 +20,17 @@ import (
 	"gocloud.dev/blob"
 	"gocloud.dev/pubsub"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytemplate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytype"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/notifier"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/tag"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/utils"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytemplate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytype"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/notifier"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/tag"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/pkgs/utils"
 )
 
 // ExportSchemaVersion is the on-disk version of the export zip layout.
@@ -188,7 +188,7 @@ type Manifest struct {
 	SchemaVersion  int            `json:"schemaVersion"`
 	ExportedAt     time.Time      `json:"exportedAt"`
 	GroupID        uuid.UUID      `json:"groupId"`
-	HomeboxVersion string         `json:"homeboxVersion,omitempty"`
+	HomeBotVersion string         `json:"homebotVersion,omitempty"`
 	Counts         map[string]int `json:"counts"`
 }
 
@@ -376,7 +376,7 @@ func (s *ExportService) RunExport(ctx context.Context, exportID, gid uuid.UUID) 
 // table to JSON, copy attachment blobs, write manifest, upload to blob
 // storage. Returns the blob key and total size.
 func (s *ExportService) buildArtifact(ctx context.Context, exportID, gid uuid.UUID) (string, int64, error) {
-	tmp, err := os.CreateTemp("", fmt.Sprintf("homebox-export-%s-*.zip", exportID))
+	tmp, err := os.CreateTemp("", fmt.Sprintf("homebot-export-%s-*.zip", exportID))
 	if err != nil {
 		return "", 0, fmt.Errorf("create temp file: %w", err)
 	}
@@ -802,7 +802,7 @@ func (s *ExportService) runImport(ctx context.Context, gid, userID, importID uui
 	}
 	defer func() { _ = r.Close() }()
 
-	tmp, err := os.CreateTemp("", "homebox-import-*.zip")
+	tmp, err := os.CreateTemp("", "homebot-import-*.zip")
 	if err != nil {
 		return fmt.Errorf("create temp: %w", err)
 	}

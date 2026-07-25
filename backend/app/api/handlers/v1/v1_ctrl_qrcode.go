@@ -8,7 +8,7 @@ import (
 	"net/url"
 
 	"github.com/hay-kot/httpkit/errchain"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 	"github.com/yeqown/go-qrcode/v2"
 	"github.com/yeqown/go-qrcode/writer/standard"
 

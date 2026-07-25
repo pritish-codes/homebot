@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 func TestEntityService_AddAttachment(t *testing.T) {

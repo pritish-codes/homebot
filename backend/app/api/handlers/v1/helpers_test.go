@@ -4,8 +4,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/stretchr/testify/assert"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 // fixtureAppURL is the canonical URL used across SecureBaseURL test cases.

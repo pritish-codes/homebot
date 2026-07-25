@@ -5,9 +5,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/hay-kot/httpkit/errchain"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 )
 
 // HandleEntityTypeGetAll godoc

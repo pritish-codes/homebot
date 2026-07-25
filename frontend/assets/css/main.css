@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root,.homebox {
+  :root,.homebot {
     --background: 0 0% 100%;
     --background-accent: 0 0% 81%;
     --foreground: 0 0% 20%;

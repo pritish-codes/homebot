@@ -19,7 +19,7 @@
   const { t } = useI18n();
 
   useHead({
-    title: "HomeBox | " + t("global.tags"),
+    title: "HomeBot | " + t("global.tags"),
   });
 
   const api = useUserApi();

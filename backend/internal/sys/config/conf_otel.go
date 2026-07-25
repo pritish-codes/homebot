@@ -6,7 +6,7 @@ import "encoding/json"
 // All standard OpenTelemetry environment variables are also supported via the SDK.
 type OTelConfig struct {
 	// ServiceName is the name of the service reported to the telemetry backend
-	ServiceName string `yaml:"service_name" conf:"default:homebox"`
+	ServiceName string `yaml:"service_name" conf:"default:homebot"`
 	// ServiceVersion is the version of the service (defaults to build version)
 	ServiceVersion string `yaml:"service_version"`
 	// Exporter specifies the exporter type: "otlp", "stdout", or "none"

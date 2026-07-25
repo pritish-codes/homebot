@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
 )
 
 const defaultLocationGarage = "Garage"

@@ -31,7 +31,7 @@ type Database struct {
 	SslRootCert      string `yaml:"ssl_rootcert"`
 	SslCert          string `yaml:"ssl_cert"`
 	SslKey           string `yaml:"ssl_key"`
-	SqlitePath       string `yaml:"sqlite_path"        conf:"default:./.data/homebox.db?_pragma=busy_timeout=999&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite"`
+	SqlitePath       string `yaml:"sqlite_path"        conf:"default:./.data/homebot.db?_pragma=busy_timeout=999&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite"`
 	PubSubConnString string `yaml:"pubsub_conn_string" conf:"default:mem://{{ .Topic }}"`
 }
 

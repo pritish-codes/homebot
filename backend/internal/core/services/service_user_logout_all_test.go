@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/pkgs/hasher"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/hasher"
 )
 
 // TestSessionPersistenceGap documents the reported behavior: authenticating again

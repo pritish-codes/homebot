@@ -40,7 +40,7 @@ const DEFAULT_PREFERENCES: LocationViewPreferences = {
   showEmpty: true,
   editorAdvancedView: false,
   itemDisplayView: "card",
-  theme: "homebox",
+  theme: "homebot",
   itemsPerTablePage: 10,
   displayLegacyHeader: false,
   legacyImageFit: false,
@@ -66,7 +66,7 @@ let syncInitialized = false;
 
 const preferenceKeys = Object.keys(DEFAULT_PREFERENCES) as (keyof LocationViewPreferences)[];
 
-const results = useLocalStorage("homebox/preferences/location", DEFAULT_PREFERENCES, { mergeDefaults: true });
+const results = useLocalStorage("homebot/preferences/location", DEFAULT_PREFERENCES, { mergeDefaults: true });
 
 function forEachSyncedPreference(callback: (key: keyof LocationViewPreferences) => void) {
   for (const key of preferenceKeys) {

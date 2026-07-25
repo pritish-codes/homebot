@@ -71,7 +71,7 @@ function lerpCorners(prev: Point2D[], next: Point2D[], t: number): Point2D[] {
   return prev.map((p, i) => lerpPoint(p, next[i]!, t));
 }
 
-function parseHomeboxUrl(rawValue: string): { entityType: "item" | "location" | "asset"; id: string } | null {
+function parseHomeBotUrl(rawValue: string): { entityType: "item" | "location" | "asset"; id: string } | null {
   try {
     let pathname: string;
     try {
@@ -307,7 +307,7 @@ export function useBarcodeDetector(videoRef: Ref<HTMLVideoElement | undefined>) 
     const now = Date.now();
 
     for (const barcode of barcodes.slice(0, MAX_DETECTIONS)) {
-      const parsed = parseHomeboxUrl(barcode.rawValue);
+      const parsed = parseHomeBotUrl(barcode.rawValue);
       if (!parsed) continue;
 
       const key = `${parsed.entityType}:${parsed.id}`;

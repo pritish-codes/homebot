@@ -14,11 +14,11 @@ import (
 	"github.com/rs/zerolog/log"
 	"gocloud.dev/blob"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 )
 
 // HandleExportsList godoc
@@ -132,7 +132,7 @@ func (ctrl *V1Controller) HandleExportDownload() errchain.HandlerFunc {
 
 		w.Header().Set("Content-Type", "application/zip")
 		w.Header().Set("Content-Disposition",
-			fmt.Sprintf(`attachment; filename="homebox-export-%s.zip"`, out.ID.String()))
+			fmt.Sprintf(`attachment; filename="homebot-export-%s.zip"`, out.ID.String()))
 		w.Header().Set("Content-Length", fmt.Sprintf("%d", out.SizeBytes))
 		w.WriteHeader(http.StatusOK)
 		_, err = io.Copy(w, reader)

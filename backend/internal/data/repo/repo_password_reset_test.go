@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
 )
 
 // TestPasswordResetTokens_AtomicClaim_RejectsExpired exercises the

@@ -7,14 +7,14 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authtokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/pkgs/hasher"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authtokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/hasher"
 )
 
 // newTestUserWithPassword creates a fresh user with a known password so each

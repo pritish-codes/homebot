@@ -10,9 +10,9 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytemplate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytype"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytemplate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytype"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
 )
 
 // EntityType is the model entity for the EntityType schema.

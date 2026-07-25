@@ -5,7 +5,7 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema/mixins"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema/mixins"
 )
 
 // EntityType holds the schema definition for the EntityType entity.

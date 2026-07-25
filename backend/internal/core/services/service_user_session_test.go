@@ -6,12 +6,12 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authroles"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authtokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/pkgs/hasher"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authroles"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authtokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/hasher"
 )
 
 // countUserSessions counts user-role auth tokens for uid. createSessionToken

@@ -10,11 +10,11 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/nicholas-fedor/shoutrrr"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/data/types"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/types"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
 )
 
 type Latest struct {
@@ -67,7 +67,7 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 
 		bldr := strings.Builder{}
 
-		bldr.WriteString("Homebox Maintenance for (")
+		bldr.WriteString("HomeBot Maintenance for (")
 		bldr.WriteString(today.String())
 		bldr.WriteString("):\n")
 
@@ -107,14 +107,14 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 }
 
 func (svc *BackgroundService) GetLatestGithubRelease(ctx context.Context) error {
-	url := "https://api.github.com/repos/sysadminsmedia/homebox/releases/latest"
+	url := "https://api.github.com/repos/pritish-codes/homebot/releases/latest"
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create latest version request: %w", err)
 	}
 
-	req.Header.Set("User-Agent", "Homebox-Version-Checker")
+	req.Header.Set("User-Agent", "HomeBot-Version-Checker")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

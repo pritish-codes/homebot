@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 // ValidateNotifierURL validates a notifier URL against the configured block/allow lists.

@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
 	// required by schema hooks.
-	_ "github.com/sysadminsmedia/homebox/backend/internal/data/ent/runtime"
+	_ "github.com/pritish-codes/homebot/backend/internal/data/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/migrate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/migrate"
 )
 
 type (

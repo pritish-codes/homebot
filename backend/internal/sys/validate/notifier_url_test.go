@@ -4,7 +4,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 )
 
 // Repeated fixture values used across many test cases.

@@ -72,7 +72,7 @@ FROM public.ecr.aws/docker/library/alpine:latest
 ENV HBOX_MODE=production
 ENV HBOX_STORAGE_CONN_STRING=file:///?no_tmp_dir=true
 ENV HBOX_STORAGE_PREFIX_PATH=data
-ENV HBOX_DATABASE_SQLITE_PATH=/data/homebox.db?_pragma=busy_timeout=2000&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite
+ENV HBOX_DATABASE_SQLITE_PATH=/data/homebot.db?_pragma=busy_timeout=2000&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite
 
 # Install necessary runtime dependencies
 RUN apk --no-cache add ca-certificates wget mosquitto-clients && \
@@ -88,8 +88,8 @@ COPY --from=builder --chown=nonroot /data /data
 RUN chmod +x /app/api
 
 # Labels and configuration for the final image
-LABEL Name=homebox Version=0.0.1
-LABEL org.opencontainers.image.source="https://github.com/sysadminsmedia/homebox"
+LABEL Name=homebot Version=0.0.1
+LABEL org.opencontainers.image.source="https://github.com/pritish-codes/homebot"
 
 # Expose necessary ports for Homebox
 EXPOSE 7745

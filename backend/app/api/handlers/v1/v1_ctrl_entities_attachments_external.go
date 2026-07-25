@@ -8,12 +8,12 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/hay-kot/httpkit/errchain"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
 	"go.opentelemetry.io/otel/attribute"
 )
 
@@ -64,7 +64,7 @@ func sanitizeExternalURLTitle(raw string) string {
 //
 //	@Summary		Create External Link Attachment
 //	@Description	Links an entity to a document or URL in an external system without copying
-//				the file into Homebox. The source is identified by source_type.
+//				the file into HomeBot. The source is identified by source_type.
 //	@Tags			Entities Attachments
 //	@Accept			json
 //	@Produce		json

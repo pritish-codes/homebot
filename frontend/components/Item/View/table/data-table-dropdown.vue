@@ -49,7 +49,7 @@
       // TODO: add warning with link to docs and just improve this
       const { isCanceled } = await confirm.open({
         message: t("components.item.view.table.dropdown.open_multi_tab_warning"),
-        href: "https://homebox.software/en/user-guide/tips-tricks#open-multiple-items-in-new-tabs",
+        href: "https://homebot.software/en/user-guide/tips-tricks#open-multiple-items-in-new-tabs",
       });
       if (isCanceled) {
         return;

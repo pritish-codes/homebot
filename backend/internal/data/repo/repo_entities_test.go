@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/types"
 )
 
 func containerFactory() EntityCreate {

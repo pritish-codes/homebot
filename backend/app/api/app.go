@@ -3,13 +3,13 @@ package main
 import (
 	"time"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/otel"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/mailer"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/otel"
+	"github.com/pritish-codes/homebot/backend/pkgs/mailer"
 )
 
 type app struct {

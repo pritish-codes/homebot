@@ -6,8 +6,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/export"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/export"
 )
 
 // ExportRepository persists Export job rows. Every method is group-scoped:

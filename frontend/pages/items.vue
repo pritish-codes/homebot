@@ -26,7 +26,7 @@
   });
 
   useHead({
-    title: "HomeBox | " + t("global.items"),
+    title: "HomeBot | " + t("global.items"),
   });
 
   const searchLocked = ref(false);

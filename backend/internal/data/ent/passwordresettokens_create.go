@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
 )
 
 // PasswordResetTokensCreate is the builder for creating a PasswordResetTokens entity.

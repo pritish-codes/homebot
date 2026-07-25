@@ -17,7 +17,7 @@
     layout: false,
   });
   useHead({
-    title: "HomeBox | " + t("reports.label_generator.title"),
+    title: "HomeBot | " + t("reports.label_generator.title"),
   });
 
   const api = useUserApi();
@@ -26,15 +26,15 @@
   const printLocationRow = ref(true);
   const labelBlankLine = "_______________";
 
-  // Behavior constants for HomeBox text replacement
+  // Behavior constants for HomeBot text replacement
   const BEHAVIOR_SHOW = "show";
   const BEHAVIOR_ALWAYS_REPLACE = "always_replace";
   const BEHAVIOR_ITEM_NO_NAME_NO_LOCATION = "item_no_name_no_location";
   const BEHAVIOR_ITEM_NO_NAME = "item_no_name";
   const BEHAVIOR_ITEM_NO_LOCATION = "item_no_location";
 
-  const replaceHomeboxBehavior = ref(BEHAVIOR_SHOW);
-  const replaceHomeboxText = ref(labelBlankLine);
+  const replaceHomeBotBehavior = ref(BEHAVIOR_SHOW);
+  const replaceHomeBotText = ref(labelBlankLine);
 
   const displayProperties = reactive({
     baseURL: window.location.origin,
@@ -277,26 +277,26 @@
     return items;
   });
 
-  const getHomeBoxLineText = computed(() => {
+  const getHomeBotLineText = computed(() => {
     return (item: LabelData): string | null => {
-      if (replaceHomeboxBehavior.value === BEHAVIOR_SHOW) {
-        return "HomeBox";
+      if (replaceHomeBotBehavior.value === BEHAVIOR_SHOW) {
+        return "HomeBot";
       }
-      if (replaceHomeboxBehavior.value === BEHAVIOR_ALWAYS_REPLACE) {
-        return replaceHomeboxText.value;
+      if (replaceHomeBotBehavior.value === BEHAVIOR_ALWAYS_REPLACE) {
+        return replaceHomeBotText.value;
       }
       if (
-        replaceHomeboxBehavior.value === BEHAVIOR_ITEM_NO_NAME_NO_LOCATION &&
+        replaceHomeBotBehavior.value === BEHAVIOR_ITEM_NO_NAME_NO_LOCATION &&
         item.name === labelBlankLine &&
         item.location === labelBlankLine
       ) {
-        return replaceHomeboxText.value;
+        return replaceHomeBotText.value;
       }
-      if (replaceHomeboxBehavior.value === BEHAVIOR_ITEM_NO_NAME && item.name === labelBlankLine) {
-        return replaceHomeboxText.value;
+      if (replaceHomeBotBehavior.value === BEHAVIOR_ITEM_NO_NAME && item.name === labelBlankLine) {
+        return replaceHomeBotText.value;
       }
-      if (replaceHomeboxBehavior.value === BEHAVIOR_ITEM_NO_LOCATION && item.location === labelBlankLine) {
-        return replaceHomeboxText.value;
+      if (replaceHomeBotBehavior.value === BEHAVIOR_ITEM_NO_LOCATION && item.location === labelBlankLine) {
+        return replaceHomeBotText.value;
       }
       return null;
     };
@@ -407,7 +407,7 @@
   <div class="print:hidden">
     <Toaster />
     <div class="container prose mx-auto max-w-4xl p-4 pt-6">
-      <h1>HomeBox {{ $t("reports.label_generator.title") }}</h1>
+      <h1>HomeBot {{ $t("reports.label_generator.title") }}</h1>
       <p>
         {{ $t("reports.label_generator.instruction_1") }}
       </p>
@@ -445,39 +445,39 @@
           />
         </div>
         <div class="flex w-full max-w-xs flex-col">
-          <Label for="select-replaceHomeboxBehavior">
-            {{ $t("reports.label_generator.replace_homebox_behavior") }}
+          <Label for="select-replaceHomeBotBehavior">
+            {{ $t("reports.label_generator.replace_homebot_behavior") }}
           </Label>
-          <Select id="select-replaceHomeboxBehavior" v-model="replaceHomeboxBehavior" class="w-full max-w-xs">
+          <Select id="select-replaceHomeBotBehavior" v-model="replaceHomeBotBehavior" class="w-full max-w-xs">
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem :value="BEHAVIOR_SHOW">
-                {{ $t("reports.label_generator.replace_homebox_behavior_show_homebox") }}
+                {{ $t("reports.label_generator.replace_homebot_behavior_show_homebot") }}
               </SelectItem>
               <SelectItem :value="BEHAVIOR_ITEM_NO_NAME_NO_LOCATION">
-                {{ $t("reports.label_generator.replace_homebox_behavior_item_no_name_no_location") }}
+                {{ $t("reports.label_generator.replace_homebot_behavior_item_no_name_no_location") }}
               </SelectItem>
               <SelectItem :value="BEHAVIOR_ITEM_NO_NAME">
-                {{ $t("reports.label_generator.replace_homebox_behavior_item_no_name") }}
+                {{ $t("reports.label_generator.replace_homebot_behavior_item_no_name") }}
               </SelectItem>
               <SelectItem :value="BEHAVIOR_ITEM_NO_LOCATION">
-                {{ $t("reports.label_generator.replace_homebox_behavior_item_no_location") }}
+                {{ $t("reports.label_generator.replace_homebot_behavior_item_no_location") }}
               </SelectItem>
               <SelectItem :value="BEHAVIOR_ALWAYS_REPLACE">
-                {{ $t("reports.label_generator.replace_homebox_behavior_always_replace") }}
+                {{ $t("reports.label_generator.replace_homebot_behavior_always_replace") }}
               </SelectItem>
             </SelectContent>
           </Select>
         </div>
-        <div v-if="replaceHomeboxBehavior !== BEHAVIOR_SHOW" class="flex w-full max-w-xs flex-col">
-          <Label for="input-replaceHomeboxText">
-            {{ $t("reports.label_generator.replace_homebox_text") }}
+        <div v-if="replaceHomeBotBehavior !== BEHAVIOR_SHOW" class="flex w-full max-w-xs flex-col">
+          <Label for="input-replaceHomeBotText">
+            {{ $t("reports.label_generator.replace_homebot_text") }}
           </Label>
           <Input
-            id="input-replaceHomeboxText"
-            v-model="replaceHomeboxText"
+            id="input-replaceHomeBotText"
+            v-model="replaceHomeBotText"
             type="text"
             :placeholder="$t('reports.label_generator.input_placeholder')"
             class="w-full max-w-xs"
@@ -558,11 +558,11 @@
             <div class="ml-2 flex flex-col justify-center">
               <div class="font-bold">{{ item.assetID }}</div>
               <div
-                v-if="getHomeBoxLineText(item)"
+                v-if="getHomeBotLineText(item)"
                 class="text-xs"
-                :class="{ 'font-light italic': getHomeBoxLineText(item) !== labelBlankLine }"
+                :class="{ 'font-light italic': getHomeBotLineText(item) !== labelBlankLine }"
               >
-                {{ getHomeBoxLineText(item) }}
+                {{ getHomeBotLineText(item) }}
               </div>
               <div class="overflow-hidden text-wrap text-xs">{{ item.name }}</div>
               <div v-if="printLocationRow" class="text-xs">{{ item.location }}</div>

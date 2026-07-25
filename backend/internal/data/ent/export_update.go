@@ -12,9 +12,9 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/export"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/export"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
 )
 
 // ExportUpdate is the builder for updating Export entities.

@@ -105,7 +105,7 @@ FROM gcr.io/distroless/static:nonroot
 ENV HBOX_MODE=production
 ENV HBOX_STORAGE_CONN_STRING=file:///?no_tmp_dir=true
 ENV HBOX_STORAGE_PREFIX_PATH=data
-ENV HBOX_DATABASE_SQLITE_PATH=/data/homebox.db?_pragma=busy_timeout=2000&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite
+ENV HBOX_DATABASE_SQLITE_PATH=/data/homebot.db?_pragma=busy_timeout=2000&_pragma=journal_mode=WAL&_fk=1&_time_format=sqlite
 
 # Create application directory and copy over built Go binary and assets
 COPY --from=builder --chown=65532:65532 /app /app
@@ -116,8 +116,8 @@ COPY --from=builder --chown=65532:65532 /data /data
 COPY --from=builder --chown=65532:65532 --chmod=755 /go/bin/hc /app/healthcheck
 
 # Labels and configuration for the final image
-LABEL Name=homebox Version=0.0.1
-LABEL org.opencontainers.image.source="https://github.com/sysadminsmedia/homebox"
+LABEL Name=homebot Version=0.0.1
+LABEL org.opencontainers.image.source="https://github.com/pritish-codes/homebot"
 
 # Expose necessary ports for Homebox
 EXPOSE 7745

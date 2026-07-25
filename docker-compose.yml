@@ -1,6 +1,6 @@
 services:
-  homebox:
-    image: homebox
+  homebot:
+    image: homebot
     build:
       context: .
       dockerfile: ./Dockerfile

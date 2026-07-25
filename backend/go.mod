@@ -1,4 +1,4 @@
-module github.com/sysadminsmedia/homebox/backend
+module github.com/pritish-codes/homebot/backend
 
 go 1.26.0
 

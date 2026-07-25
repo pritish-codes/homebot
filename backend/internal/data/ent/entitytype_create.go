@@ -11,10 +11,10 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytemplate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytype"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytemplate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytype"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
 )
 
 // EntityTypeCreate is the builder for creating a EntityType entity.

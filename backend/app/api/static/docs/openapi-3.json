@@ -2,10 +2,10 @@
     "openapi": "3.0.0",
     "info": {
         "description": "Track, Manage, and Organize your Things.",
-        "title": "Homebox API",
+        "title": "HomeBot API",
         "contact": {
-            "name": "Homebox Team",
-            "url": "https://discord.homebox.software"
+            "name": "HomeBot Team",
+            "url": "https://github.com/pritish-codes/homebot"
         },
         "version": "1.0"
     },
@@ -4406,9 +4406,17 @@
                         "description": "ID of the ent.",
                         "type": "string"
                     },
+                    "is_recurring": {
+                        "description": "IsRecurring holds the value of the \"is_recurring\" field.",
+                        "type": "boolean"
+                    },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
+                    },
+                    "recurrence_interval_months": {
+                        "description": "RecurrenceIntervalMonths holds the value of the \"recurrence_interval_months\" field.",
+                        "type": "integer"
                     },
                     "scheduled_date": {
                         "description": "ScheduledDate holds the value of the \"scheduled_date\" field.",
@@ -6022,8 +6030,14 @@
                     "id": {
                         "type": "string"
                     },
+                    "isRecurring": {
+                        "type": "boolean"
+                    },
                     "name": {
                         "type": "string"
+                    },
+                    "recurrenceIntervalMonths": {
+                        "type": "integer"
                     },
                     "scheduledDate": {
                         "type": "string"
@@ -6046,8 +6060,14 @@
                     "description": {
                         "type": "string"
                     },
+                    "isRecurring": {
+                        "type": "boolean"
+                    },
                     "name": {
                         "type": "string"
+                    },
+                    "recurrenceIntervalMonths": {
+                        "type": "integer"
                     },
                     "scheduledDate": {
                         "type": "string"
@@ -6067,8 +6087,14 @@
                     "description": {
                         "type": "string"
                     },
+                    "isRecurring": {
+                        "type": "boolean"
+                    },
                     "name": {
                         "type": "string"
+                    },
+                    "recurrenceIntervalMonths": {
+                        "type": "integer"
                     },
                     "scheduledDate": {
                         "type": "string"
@@ -6091,6 +6117,9 @@
                     "id": {
                         "type": "string"
                     },
+                    "isRecurring": {
+                        "type": "boolean"
+                    },
                     "itemID": {
                         "type": "string"
                     },
@@ -6099,6 +6128,9 @@
                     },
                     "name": {
                         "type": "string"
+                    },
+                    "recurrenceIntervalMonths": {
+                        "type": "integer"
                     },
                     "scheduledDate": {
                         "type": "string"

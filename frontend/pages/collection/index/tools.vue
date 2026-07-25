@@ -94,7 +94,7 @@
                       v-if="b.status === 'completed'"
                       :href="downloadUrl(b.id)"
                       class="text-primary underline"
-                      :download="`homebox-export-${b.id}.zip`"
+                      :download="`homebot-export-${b.id}.zip`"
                     >
                       {{ $t("tools.backups_set.download") }}
                     </a>
@@ -199,7 +199,7 @@
     middleware: ["auth"],
   });
   useHead({
-    title: "HomeBox | " + t("collection.tabs.tools"),
+    title: "HomeBot | " + t("collection.tabs.tools"),
   });
 
   const { openDialog } = useDialog();

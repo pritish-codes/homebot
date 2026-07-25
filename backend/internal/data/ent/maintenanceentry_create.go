@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/maintenanceentry"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/maintenanceentry"
 )
 
 // MaintenanceEntryCreate is the builder for creating a MaintenanceEntry entity.
@@ -118,6 +118,34 @@ func (_c *MaintenanceEntryCreate) SetNillableCost(v *float64) *MaintenanceEntryC
 	return _c
 }
 
+// SetIsRecurring sets the "is_recurring" field.
+func (_c *MaintenanceEntryCreate) SetIsRecurring(v bool) *MaintenanceEntryCreate {
+	_c.mutation.SetIsRecurring(v)
+	return _c
+}
+
+// SetNillableIsRecurring sets the "is_recurring" field if the given value is not nil.
+func (_c *MaintenanceEntryCreate) SetNillableIsRecurring(v *bool) *MaintenanceEntryCreate {
+	if v != nil {
+		_c.SetIsRecurring(*v)
+	}
+	return _c
+}
+
+// SetRecurrenceIntervalMonths sets the "recurrence_interval_months" field.
+func (_c *MaintenanceEntryCreate) SetRecurrenceIntervalMonths(v int) *MaintenanceEntryCreate {
+	_c.mutation.SetRecurrenceIntervalMonths(v)
+	return _c
+}
+
+// SetNillableRecurrenceIntervalMonths sets the "recurrence_interval_months" field if the given value is not nil.
+func (_c *MaintenanceEntryCreate) SetNillableRecurrenceIntervalMonths(v *int) *MaintenanceEntryCreate {
+	if v != nil {
+		_c.SetRecurrenceIntervalMonths(*v)
+	}
+	return _c
+}
+
 // SetID sets the "id" field.
 func (_c *MaintenanceEntryCreate) SetID(v uuid.UUID) *MaintenanceEntryCreate {
 	_c.mutation.SetID(v)
@@ -184,6 +212,10 @@ func (_c *MaintenanceEntryCreate) defaults() {
 		v := maintenanceentry.DefaultCost
 		_c.mutation.SetCost(v)
 	}
+	if _, ok := _c.mutation.IsRecurring(); !ok {
+		v := maintenanceentry.DefaultIsRecurring
+		_c.mutation.SetIsRecurring(v)
+	}
 	if _, ok := _c.mutation.ID(); !ok {
 		v := maintenanceentry.DefaultID()
 		_c.mutation.SetID(v)
@@ -216,6 +248,14 @@ func (_c *MaintenanceEntryCreate) check() error {
 	}
 	if _, ok := _c.mutation.Cost(); !ok {
 		return &ValidationError{Name: "cost", err: errors.New(`ent: missing required field "MaintenanceEntry.cost"`)}
+	}
+	if _, ok := _c.mutation.IsRecurring(); !ok {
+		return &ValidationError{Name: "is_recurring", err: errors.New(`ent: missing required field "MaintenanceEntry.is_recurring"`)}
+	}
+	if v, ok := _c.mutation.RecurrenceIntervalMonths(); ok {
+		if err := maintenanceentry.RecurrenceIntervalMonthsValidator(v); err != nil {
+			return &ValidationError{Name: "recurrence_interval_months", err: fmt.Errorf(`ent: validator failed for field "MaintenanceEntry.recurrence_interval_months": %w`, err)}
+		}
 	}
 	if len(_c.mutation.EntityIDs()) == 0 {
 		return &ValidationError{Name: "entity", err: errors.New(`ent: missing required edge "MaintenanceEntry.entity"`)}
@@ -282,6 +322,14 @@ func (_c *MaintenanceEntryCreate) createSpec() (*MaintenanceEntry, *sqlgraph.Cre
 	if value, ok := _c.mutation.Cost(); ok {
 		_spec.SetField(maintenanceentry.FieldCost, field.TypeFloat64, value)
 		_node.Cost = value
+	}
+	if value, ok := _c.mutation.IsRecurring(); ok {
+		_spec.SetField(maintenanceentry.FieldIsRecurring, field.TypeBool, value)
+		_node.IsRecurring = value
+	}
+	if value, ok := _c.mutation.RecurrenceIntervalMonths(); ok {
+		_spec.SetField(maintenanceentry.FieldRecurrenceIntervalMonths, field.TypeInt, value)
+		_node.RecurrenceIntervalMonths = value
 	}
 	if nodes := _c.mutation.EntityIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

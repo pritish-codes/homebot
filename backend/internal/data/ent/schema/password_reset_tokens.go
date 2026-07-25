@@ -9,7 +9,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema/mixins"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema/mixins"
 )
 
 // PasswordResetTokens holds single-use reset tokens for the forgot-password flow.

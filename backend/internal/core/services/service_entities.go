@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
 	"github.com/samber/lo"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"

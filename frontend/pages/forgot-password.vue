@@ -11,7 +11,7 @@
   const { t } = useI18n();
 
   useHead({
-    title: "HomeBox | " + t("index.forgot_password_title"),
+    title: "HomeBot | " + t("index.forgot_password_title"),
   });
 
   definePageMeta({
@@ -47,7 +47,7 @@
     <div class="mb-6 flex items-center gap-2 text-3xl font-bold tracking-tight">
       HomeB
       <AppLogo class="-mb-2 w-10" />
-      x
+      t
     </div>
 
     <Card class="md:w-[460px]">

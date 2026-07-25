@@ -6,23 +6,23 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/apikey"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authtokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entityfield"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytemplate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytype"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/export"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/groupinvitationtoken"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/maintenanceentry"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/notifier"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/tag"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/templatefield"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/apikey"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authtokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entityfield"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytemplate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytype"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/export"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/groupinvitationtoken"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/maintenanceentry"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/notifier"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/tag"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/templatefield"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -566,6 +566,14 @@ func init() {
 	maintenanceentryDescCost := maintenanceentryFields[5].Descriptor()
 	// maintenanceentry.DefaultCost holds the default value on creation for the cost field.
 	maintenanceentry.DefaultCost = maintenanceentryDescCost.Default.(float64)
+	// maintenanceentryDescIsRecurring is the schema descriptor for is_recurring field.
+	maintenanceentryDescIsRecurring := maintenanceentryFields[6].Descriptor()
+	// maintenanceentry.DefaultIsRecurring holds the default value on creation for the is_recurring field.
+	maintenanceentry.DefaultIsRecurring = maintenanceentryDescIsRecurring.Default.(bool)
+	// maintenanceentryDescRecurrenceIntervalMonths is the schema descriptor for recurrence_interval_months field.
+	maintenanceentryDescRecurrenceIntervalMonths := maintenanceentryFields[7].Descriptor()
+	// maintenanceentry.RecurrenceIntervalMonthsValidator is a validator for the "recurrence_interval_months" field. It is called by the builders before save.
+	maintenanceentry.RecurrenceIntervalMonthsValidator = maintenanceentryDescRecurrenceIntervalMonths.Validators[0].(func(int) error)
 	// maintenanceentryDescID is the schema descriptor for id field.
 	maintenanceentryDescID := maintenanceentryMixinFields0[0].Descriptor()
 	// maintenanceentry.DefaultID holds the default value on creation for the id field.

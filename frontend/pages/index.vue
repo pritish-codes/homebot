@@ -24,7 +24,7 @@
   const { t } = useI18n();
 
   useHead({
-    title: "HomeBox | " + t("index.title"),
+    title: "HomeBot | " + t("index.title"),
   });
 
   definePageMeta({
@@ -248,7 +248,7 @@
           <h2 class="mt-1 flex text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             HomeB
             <AppLogo class="-mb-4 w-12" />
-            x
+            t
           </h2>
           <p
             class="ml-1 text-lg"
@@ -264,7 +264,7 @@
           <div class="z-10 ml-auto mt-6 flex items-center gap-4 sm:mt-0">
             <Tooltip>
               <TooltipTrigger as-child>
-                <a href="https://github.com/sysadminsmedia/homebox" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/sysadminsmedia/homebot" target="_blank" rel="noopener noreferrer">
                   <MdiGithub class="size-8" />
                 </a>
               </TooltipTrigger>
@@ -291,7 +291,7 @@
 
             <Tooltip>
               <TooltipTrigger as-child>
-                <a href="https://homebox.software/en/" target="_blank" rel="noopener noreferrer">
+                <a href="https://homebot.software/en/" target="_blank" rel="noopener noreferrer">
                   <MdiFolder class="size-8" />
                 </a>
               </TooltipTrigger>

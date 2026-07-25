@@ -31,6 +31,10 @@ const (
 	FieldDescription = "description"
 	// FieldCost holds the string denoting the cost field in the database.
 	FieldCost = "cost"
+	// FieldIsRecurring holds the string denoting the is_recurring field in the database.
+	FieldIsRecurring = "is_recurring"
+	// FieldRecurrenceIntervalMonths holds the string denoting the recurrence_interval_months field in the database.
+	FieldRecurrenceIntervalMonths = "recurrence_interval_months"
 	// EdgeEntity holds the string denoting the entity edge name in mutations.
 	EdgeEntity = "entity"
 	// Table holds the table name of the maintenanceentry in the database.
@@ -55,6 +59,8 @@ var Columns = []string{
 	FieldName,
 	FieldDescription,
 	FieldCost,
+	FieldIsRecurring,
+	FieldRecurrenceIntervalMonths,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -80,6 +86,10 @@ var (
 	DescriptionValidator func(string) error
 	// DefaultCost holds the default value on creation for the "cost" field.
 	DefaultCost float64
+	// DefaultIsRecurring holds the default value on creation for the "is_recurring" field.
+	DefaultIsRecurring bool
+	// RecurrenceIntervalMonthsValidator is a validator for the "recurrence_interval_months" field. It is called by the builders before save.
+	RecurrenceIntervalMonthsValidator func(int) error
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
@@ -130,6 +140,16 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 // ByCost orders the results by the cost field.
 func ByCost(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCost, opts...).ToFunc()
+}
+
+// ByIsRecurring orders the results by the is_recurring field.
+func ByIsRecurring(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIsRecurring, opts...).ToFunc()
+}
+
+// ByRecurrenceIntervalMonths orders the results by the recurrence_interval_months field.
+func ByRecurrenceIntervalMonths(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRecurrenceIntervalMonths, opts...).ToFunc()
 }
 
 // ByEntityField orders the results by entity field.

@@ -6,12 +6,12 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/tag"
 	"github.com/samber/lo"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/tag"
 )
 
 // TagRepository provides data access operations for tag entities.

@@ -8,7 +8,7 @@
           <p>{{ $t("components.app.outdated.latest_version") }}: {{ latest }}</p>
           <p>
             <a
-              href="https://github.com/sysadminsmedia/homebox/releases"
+              href="https://github.com/sysadminsmedia/homebot/releases"
               target="_blank"
               rel="noopener"
               class="underline hover:text-primary"

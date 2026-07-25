@@ -152,7 +152,7 @@ var (
 // same argon2id work a real login performs.
 func timingEqualizationHash() string {
 	dummyHashOnce.Do(func() {
-		h, err := HashPassword("homebox-timing-equalization-placeholder")
+		h, err := HashPassword("homebot-timing-equalization-placeholder")
 		if err != nil {
 			dummyHash = staticDummyHash
 			return

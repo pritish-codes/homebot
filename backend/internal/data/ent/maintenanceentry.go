@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/maintenanceentry"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/maintenanceentry"
 )
 
 // MaintenanceEntry is the model entity for the MaintenanceEntry schema.
@@ -35,6 +35,10 @@ type MaintenanceEntry struct {
 	Description string `json:"description,omitempty"`
 	// Cost holds the value of the "cost" field.
 	Cost float64 `json:"cost,omitempty"`
+	// IsRecurring holds the value of the "is_recurring" field.
+	IsRecurring bool `json:"is_recurring,omitempty"`
+	// RecurrenceIntervalMonths holds the value of the "recurrence_interval_months" field.
+	RecurrenceIntervalMonths int `json:"recurrence_interval_months,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the MaintenanceEntryQuery when eager-loading is set.
 	Edges        MaintenanceEntryEdges `json:"edges"`
@@ -66,8 +70,12 @@ func (*MaintenanceEntry) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case maintenanceentry.FieldIsRecurring:
+			values[i] = new(sql.NullBool)
 		case maintenanceentry.FieldCost:
 			values[i] = new(sql.NullFloat64)
+		case maintenanceentry.FieldRecurrenceIntervalMonths:
+			values[i] = new(sql.NullInt64)
 		case maintenanceentry.FieldName, maintenanceentry.FieldDescription:
 			values[i] = new(sql.NullString)
 		case maintenanceentry.FieldCreatedAt, maintenanceentry.FieldUpdatedAt, maintenanceentry.FieldDate, maintenanceentry.FieldScheduledDate:
@@ -143,6 +151,18 @@ func (_m *MaintenanceEntry) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Cost = value.Float64
 			}
+		case maintenanceentry.FieldIsRecurring:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field is_recurring", values[i])
+			} else if value.Valid {
+				_m.IsRecurring = value.Bool
+			}
+		case maintenanceentry.FieldRecurrenceIntervalMonths:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field recurrence_interval_months", values[i])
+			} else if value.Valid {
+				_m.RecurrenceIntervalMonths = int(value.Int64)
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -207,6 +227,12 @@ func (_m *MaintenanceEntry) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("cost=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Cost))
+	builder.WriteString(", ")
+	builder.WriteString("is_recurring=")
+	builder.WriteString(fmt.Sprintf("%v", _m.IsRecurring))
+	builder.WriteString(", ")
+	builder.WriteString("recurrence_interval_months=")
+	builder.WriteString(fmt.Sprintf("%v", _m.RecurrenceIntervalMonths))
 	builder.WriteByte(')')
 	return builder.String()
 }

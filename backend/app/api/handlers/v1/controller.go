@@ -11,13 +11,13 @@ import (
 	"github.com/google/uuid"
 	"github.com/hay-kot/httpkit/errchain"
 	"github.com/hay-kot/httpkit/server"
+	"github.com/pritish-codes/homebot/backend/app/api/providers"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/app/api/providers"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
 
 	"github.com/olahol/melody"
 )
@@ -185,7 +185,7 @@ func (ctrl *V1Controller) HandleBase(ready ReadyFunc, build Build) errchain.Hand
 	return func(w http.ResponseWriter, r *http.Request) error {
 		return server.JSON(w, http.StatusOK, APISummary{
 			Healthy:           ready(),
-			Title:             "Homebox",
+			Title:             "HomeBot",
 			Message:           "Track, Manage, and Organize your Things",
 			Build:             build,
 			Latest:            ctrl.svc.BackgroundService.GetLatestVersion(),

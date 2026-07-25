@@ -22,7 +22,7 @@
   });
 
   useHead({
-    title: "HomeBox | " + t("menu.locations"),
+    title: "HomeBot | " + t("menu.locations"),
   });
 
   const api = useUserApi();

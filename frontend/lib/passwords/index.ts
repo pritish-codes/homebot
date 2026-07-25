@@ -1,4 +1,4 @@
-const flaggedWords = ["password", "homebox", "admin", "qwerty", "login"];
+const flaggedWords = ["password", "homebot", "admin", "qwerty", "login"];
 
 export const PASSWORD_MIN_LENGTH = 6;
 export const PASSWORD_RULES = `minlength: ${PASSWORD_MIN_LENGTH};`;

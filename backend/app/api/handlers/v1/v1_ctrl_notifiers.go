@@ -6,10 +6,10 @@ import (
 	"github.com/google/uuid"
 	"github.com/hay-kot/httpkit/errchain"
 	"github.com/nicholas-fedor/shoutrrr"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 )
 
 // HandleGetUserNotifiers godoc
@@ -117,7 +117,7 @@ func (ctrl *V1Controller) HandlerNotifierTest() errchain.HandlerFunc {
 			return nil, validate.NewRequestError(err, http.StatusBadRequest)
 		}
 
-		err := shoutrrr.Send(q.URL, "Test message from Homebox")
+		err := shoutrrr.Send(q.URL, "Test message from HomeBot")
 		return nil, err
 	}
 

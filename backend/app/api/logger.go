@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	appotel "github.com/pritish-codes/homebot/backend/internal/sys/otel"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	appotel "github.com/sysadminsmedia/homebox/backend/internal/sys/otel"
 )
 
 // setupLogger initializes the zerolog config

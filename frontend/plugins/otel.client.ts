@@ -61,7 +61,7 @@ export default defineNuxtPlugin(async () => {
 
   const otelConfig = {
     enabled: true,
-    serviceName: String(runtimeConfig.public?.otelServiceName || "homebox-frontend"),
+    serviceName: String(runtimeConfig.public?.otelServiceName || "homebot-frontend"),
     serviceVersion: String(runtimeConfig.public?.otelServiceVersion || "1.0.0"),
     useBackendProxy: true, // Always use backend proxy for security
     sampleRate: parseFloat(String(runtimeConfig.public?.otelSampleRate || "1.0")),

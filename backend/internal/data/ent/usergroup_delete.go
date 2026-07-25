@@ -7,8 +7,8 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/usergroup"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/usergroup"
 )
 
 // UserGroupDelete is the builder for deleting a UserGroup entity.

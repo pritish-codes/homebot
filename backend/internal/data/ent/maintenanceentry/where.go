@@ -8,7 +8,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.
@@ -94,6 +94,16 @@ func Description(v string) predicate.MaintenanceEntry {
 // Cost applies equality check predicate on the "cost" field. It's identical to CostEQ.
 func Cost(v float64) predicate.MaintenanceEntry {
 	return predicate.MaintenanceEntry(sql.FieldEQ(FieldCost, v))
+}
+
+// IsRecurring applies equality check predicate on the "is_recurring" field. It's identical to IsRecurringEQ.
+func IsRecurring(v bool) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldEQ(FieldIsRecurring, v))
+}
+
+// RecurrenceIntervalMonths applies equality check predicate on the "recurrence_interval_months" field. It's identical to RecurrenceIntervalMonthsEQ.
+func RecurrenceIntervalMonths(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldEQ(FieldRecurrenceIntervalMonths, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -474,6 +484,66 @@ func CostLT(v float64) predicate.MaintenanceEntry {
 // CostLTE applies the LTE predicate on the "cost" field.
 func CostLTE(v float64) predicate.MaintenanceEntry {
 	return predicate.MaintenanceEntry(sql.FieldLTE(FieldCost, v))
+}
+
+// IsRecurringEQ applies the EQ predicate on the "is_recurring" field.
+func IsRecurringEQ(v bool) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldEQ(FieldIsRecurring, v))
+}
+
+// IsRecurringNEQ applies the NEQ predicate on the "is_recurring" field.
+func IsRecurringNEQ(v bool) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldNEQ(FieldIsRecurring, v))
+}
+
+// RecurrenceIntervalMonthsEQ applies the EQ predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsEQ(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldEQ(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsNEQ applies the NEQ predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsNEQ(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldNEQ(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsIn applies the In predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsIn(vs ...int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldIn(FieldRecurrenceIntervalMonths, vs...))
+}
+
+// RecurrenceIntervalMonthsNotIn applies the NotIn predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsNotIn(vs ...int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldNotIn(FieldRecurrenceIntervalMonths, vs...))
+}
+
+// RecurrenceIntervalMonthsGT applies the GT predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsGT(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldGT(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsGTE applies the GTE predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsGTE(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldGTE(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsLT applies the LT predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsLT(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldLT(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsLTE applies the LTE predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsLTE(v int) predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldLTE(FieldRecurrenceIntervalMonths, v))
+}
+
+// RecurrenceIntervalMonthsIsNil applies the IsNil predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsIsNil() predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldIsNull(FieldRecurrenceIntervalMonths))
+}
+
+// RecurrenceIntervalMonthsNotNil applies the NotNil predicate on the "recurrence_interval_months" field.
+func RecurrenceIntervalMonthsNotNil() predicate.MaintenanceEntry {
+	return predicate.MaintenanceEntry(sql.FieldNotNull(FieldRecurrenceIntervalMonths))
 }
 
 // HasEntity applies the HasEdge predicate on the "entity" edge.

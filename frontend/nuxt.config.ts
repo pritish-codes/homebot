@@ -32,7 +32,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // OpenTelemetry configuration (can be overridden by environment variables)
-      otelServiceName: process.env.NUXT_PUBLIC_OTEL_SERVICE_NAME || "homebox-frontend",
+      otelServiceName: process.env.NUXT_PUBLIC_OTEL_SERVICE_NAME || "homebot-frontend",
       otelServiceVersion: process.env.NUXT_PUBLIC_OTEL_SERVICE_VERSION || "1.0.0",
       otelSampleRate: process.env.NUXT_PUBLIC_OTEL_SAMPLE_RATE || "1.0",
       otelDebug: process.env.NUXT_PUBLIC_OTEL_DEBUG || "false",
@@ -84,8 +84,8 @@ export default defineNuxtConfig({
       enabled: false,
     },
     manifest: {
-      name: "Homebox",
-      short_name: "Homebox",
+      name: "HomeBot",
+      short_name: "HomeBot",
       description: "Home Inventory App",
       theme_color: "#5b7f67",
       start_url: "/home",

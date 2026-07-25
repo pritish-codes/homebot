@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/export"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/export"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
 )
 
 // ExportDelete is the builder for deleting a Export entity.

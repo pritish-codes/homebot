@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
 )
 
 // PasswordResetTokens is the model entity for the PasswordResetTokens schema.

@@ -81,7 +81,7 @@
   const detectedBarcode = ref<string>("");
   const detectedBarcodeType = ref<string>("");
 
-  const LAST_USED_DEVICE_ID_KEY = "homebox:lastUsedDeviceId";
+  const LAST_USED_DEVICE_ID_KEY = "homebot:lastUsedDeviceId";
 
   const handleError = (error: unknown) => {
     console.error("Scanner error:", error);

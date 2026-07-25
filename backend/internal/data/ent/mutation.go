@@ -12,25 +12,25 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/apikey"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authroles"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authtokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entityfield"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytemplate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entitytype"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/export"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/groupinvitationtoken"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/maintenanceentry"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/notifier"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/passwordresettokens"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/tag"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/templatefield"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/usergroup"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/apikey"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authroles"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authtokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entityfield"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytemplate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entitytype"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/export"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/groupinvitationtoken"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/maintenanceentry"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/notifier"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/passwordresettokens"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/tag"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/templatefield"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/usergroup"
 )
 
 const (
@@ -11316,23 +11316,26 @@ func (m *GroupInvitationTokenMutation) ResetEdge(name string) error {
 // MaintenanceEntryMutation represents an operation that mutates the MaintenanceEntry nodes in the graph.
 type MaintenanceEntryMutation struct {
 	config
-	op             Op
-	typ            string
-	id             *uuid.UUID
-	created_at     *time.Time
-	updated_at     *time.Time
-	date           *time.Time
-	scheduled_date *time.Time
-	name           *string
-	description    *string
-	cost           *float64
-	addcost        *float64
-	clearedFields  map[string]struct{}
-	entity         *uuid.UUID
-	clearedentity  bool
-	done           bool
-	oldValue       func(context.Context) (*MaintenanceEntry, error)
-	predicates     []predicate.MaintenanceEntry
+	op                            Op
+	typ                           string
+	id                            *uuid.UUID
+	created_at                    *time.Time
+	updated_at                    *time.Time
+	date                          *time.Time
+	scheduled_date                *time.Time
+	name                          *string
+	description                   *string
+	cost                          *float64
+	addcost                       *float64
+	is_recurring                  *bool
+	recurrence_interval_months    *int
+	addrecurrence_interval_months *int
+	clearedFields                 map[string]struct{}
+	entity                        *uuid.UUID
+	clearedentity                 bool
+	done                          bool
+	oldValue                      func(context.Context) (*MaintenanceEntry, error)
+	predicates                    []predicate.MaintenanceEntry
 }
 
 var _ ent.Mutation = (*MaintenanceEntryMutation)(nil)
@@ -11786,6 +11789,112 @@ func (m *MaintenanceEntryMutation) ResetCost() {
 	m.addcost = nil
 }
 
+// SetIsRecurring sets the "is_recurring" field.
+func (m *MaintenanceEntryMutation) SetIsRecurring(b bool) {
+	m.is_recurring = &b
+}
+
+// IsRecurring returns the value of the "is_recurring" field in the mutation.
+func (m *MaintenanceEntryMutation) IsRecurring() (r bool, exists bool) {
+	v := m.is_recurring
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIsRecurring returns the old "is_recurring" field's value of the MaintenanceEntry entity.
+// If the MaintenanceEntry object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MaintenanceEntryMutation) OldIsRecurring(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIsRecurring is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIsRecurring requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIsRecurring: %w", err)
+	}
+	return oldValue.IsRecurring, nil
+}
+
+// ResetIsRecurring resets all changes to the "is_recurring" field.
+func (m *MaintenanceEntryMutation) ResetIsRecurring() {
+	m.is_recurring = nil
+}
+
+// SetRecurrenceIntervalMonths sets the "recurrence_interval_months" field.
+func (m *MaintenanceEntryMutation) SetRecurrenceIntervalMonths(i int) {
+	m.recurrence_interval_months = &i
+	m.addrecurrence_interval_months = nil
+}
+
+// RecurrenceIntervalMonths returns the value of the "recurrence_interval_months" field in the mutation.
+func (m *MaintenanceEntryMutation) RecurrenceIntervalMonths() (r int, exists bool) {
+	v := m.recurrence_interval_months
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRecurrenceIntervalMonths returns the old "recurrence_interval_months" field's value of the MaintenanceEntry entity.
+// If the MaintenanceEntry object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MaintenanceEntryMutation) OldRecurrenceIntervalMonths(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRecurrenceIntervalMonths is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRecurrenceIntervalMonths requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRecurrenceIntervalMonths: %w", err)
+	}
+	return oldValue.RecurrenceIntervalMonths, nil
+}
+
+// AddRecurrenceIntervalMonths adds i to the "recurrence_interval_months" field.
+func (m *MaintenanceEntryMutation) AddRecurrenceIntervalMonths(i int) {
+	if m.addrecurrence_interval_months != nil {
+		*m.addrecurrence_interval_months += i
+	} else {
+		m.addrecurrence_interval_months = &i
+	}
+}
+
+// AddedRecurrenceIntervalMonths returns the value that was added to the "recurrence_interval_months" field in this mutation.
+func (m *MaintenanceEntryMutation) AddedRecurrenceIntervalMonths() (r int, exists bool) {
+	v := m.addrecurrence_interval_months
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearRecurrenceIntervalMonths clears the value of the "recurrence_interval_months" field.
+func (m *MaintenanceEntryMutation) ClearRecurrenceIntervalMonths() {
+	m.recurrence_interval_months = nil
+	m.addrecurrence_interval_months = nil
+	m.clearedFields[maintenanceentry.FieldRecurrenceIntervalMonths] = struct{}{}
+}
+
+// RecurrenceIntervalMonthsCleared returns if the "recurrence_interval_months" field was cleared in this mutation.
+func (m *MaintenanceEntryMutation) RecurrenceIntervalMonthsCleared() bool {
+	_, ok := m.clearedFields[maintenanceentry.FieldRecurrenceIntervalMonths]
+	return ok
+}
+
+// ResetRecurrenceIntervalMonths resets all changes to the "recurrence_interval_months" field.
+func (m *MaintenanceEntryMutation) ResetRecurrenceIntervalMonths() {
+	m.recurrence_interval_months = nil
+	m.addrecurrence_interval_months = nil
+	delete(m.clearedFields, maintenanceentry.FieldRecurrenceIntervalMonths)
+}
+
 // ClearEntity clears the "entity" edge to the Entity entity.
 func (m *MaintenanceEntryMutation) ClearEntity() {
 	m.clearedentity = true
@@ -11847,7 +11956,7 @@ func (m *MaintenanceEntryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MaintenanceEntryMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 10)
 	if m.created_at != nil {
 		fields = append(fields, maintenanceentry.FieldCreatedAt)
 	}
@@ -11871,6 +11980,12 @@ func (m *MaintenanceEntryMutation) Fields() []string {
 	}
 	if m.cost != nil {
 		fields = append(fields, maintenanceentry.FieldCost)
+	}
+	if m.is_recurring != nil {
+		fields = append(fields, maintenanceentry.FieldIsRecurring)
+	}
+	if m.recurrence_interval_months != nil {
+		fields = append(fields, maintenanceentry.FieldRecurrenceIntervalMonths)
 	}
 	return fields
 }
@@ -11896,6 +12011,10 @@ func (m *MaintenanceEntryMutation) Field(name string) (ent.Value, bool) {
 		return m.Description()
 	case maintenanceentry.FieldCost:
 		return m.Cost()
+	case maintenanceentry.FieldIsRecurring:
+		return m.IsRecurring()
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		return m.RecurrenceIntervalMonths()
 	}
 	return nil, false
 }
@@ -11921,6 +12040,10 @@ func (m *MaintenanceEntryMutation) OldField(ctx context.Context, name string) (e
 		return m.OldDescription(ctx)
 	case maintenanceentry.FieldCost:
 		return m.OldCost(ctx)
+	case maintenanceentry.FieldIsRecurring:
+		return m.OldIsRecurring(ctx)
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		return m.OldRecurrenceIntervalMonths(ctx)
 	}
 	return nil, fmt.Errorf("unknown MaintenanceEntry field %s", name)
 }
@@ -11986,6 +12109,20 @@ func (m *MaintenanceEntryMutation) SetField(name string, value ent.Value) error 
 		}
 		m.SetCost(v)
 		return nil
+	case maintenanceentry.FieldIsRecurring:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIsRecurring(v)
+		return nil
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRecurrenceIntervalMonths(v)
+		return nil
 	}
 	return fmt.Errorf("unknown MaintenanceEntry field %s", name)
 }
@@ -11997,6 +12134,9 @@ func (m *MaintenanceEntryMutation) AddedFields() []string {
 	if m.addcost != nil {
 		fields = append(fields, maintenanceentry.FieldCost)
 	}
+	if m.addrecurrence_interval_months != nil {
+		fields = append(fields, maintenanceentry.FieldRecurrenceIntervalMonths)
+	}
 	return fields
 }
 
@@ -12007,6 +12147,8 @@ func (m *MaintenanceEntryMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case maintenanceentry.FieldCost:
 		return m.AddedCost()
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		return m.AddedRecurrenceIntervalMonths()
 	}
 	return nil, false
 }
@@ -12022,6 +12164,13 @@ func (m *MaintenanceEntryMutation) AddField(name string, value ent.Value) error 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddCost(v)
+		return nil
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddRecurrenceIntervalMonths(v)
 		return nil
 	}
 	return fmt.Errorf("unknown MaintenanceEntry numeric field %s", name)
@@ -12039,6 +12188,9 @@ func (m *MaintenanceEntryMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(maintenanceentry.FieldDescription) {
 		fields = append(fields, maintenanceentry.FieldDescription)
+	}
+	if m.FieldCleared(maintenanceentry.FieldRecurrenceIntervalMonths) {
+		fields = append(fields, maintenanceentry.FieldRecurrenceIntervalMonths)
 	}
 	return fields
 }
@@ -12062,6 +12214,9 @@ func (m *MaintenanceEntryMutation) ClearField(name string) error {
 		return nil
 	case maintenanceentry.FieldDescription:
 		m.ClearDescription()
+		return nil
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		m.ClearRecurrenceIntervalMonths()
 		return nil
 	}
 	return fmt.Errorf("unknown MaintenanceEntry nullable field %s", name)
@@ -12094,6 +12249,12 @@ func (m *MaintenanceEntryMutation) ResetField(name string) error {
 		return nil
 	case maintenanceentry.FieldCost:
 		m.ResetCost()
+		return nil
+	case maintenanceentry.FieldIsRecurring:
+		m.ResetIsRecurring()
+		return nil
+	case maintenanceentry.FieldRecurrenceIntervalMonths:
+		m.ResetRecurrenceIntervalMonths()
 		return nil
 	}
 	return fmt.Errorf("unknown MaintenanceEntry field %s", name)

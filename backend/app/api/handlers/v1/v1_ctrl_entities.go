@@ -15,12 +15,12 @@ import (
 	"github.com/google/uuid"
 	"github.com/hay-kot/httpkit/errchain"
 	"github.com/hay-kot/httpkit/server"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 	"github.com/rs/zerolog/log"
 	"github.com/samber/lo"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
@@ -567,7 +567,7 @@ func (ctrl *V1Controller) HandleEntitiesExport() errchain.HandlerFunc {
 		span.SetAttributes(attribute.Int("csv.rows.count", len(csvData)))
 
 		timestamp := time.Now().Format("2006-01-02_15-04-05")
-		filename := fmt.Sprintf("homebox-entities_%s.csv", timestamp)
+		filename := fmt.Sprintf("homebot-entities_%s.csv", timestamp)
 
 		w.Header().Set("Content-Type", "text/csv")
 		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment;filename=%s", filename))

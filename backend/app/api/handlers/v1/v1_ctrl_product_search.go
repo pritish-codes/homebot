@@ -14,10 +14,10 @@ import (
 
 	"github.com/hay-kot/httpkit/errchain"
 	"github.com/hay-kot/httpkit/server"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/web/adapters"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/adapters"
 )
 
 const (
@@ -367,10 +367,10 @@ func lookupOpenFacts(contact string, source openFactsSource, iEan string) ([]rep
 	if err != nil {
 		return nil, err
 	}
-	userAgent := "Homebox/1.0 (https://github.com/sysadminsmedia/homebox)"
+	userAgent := "HomeBot/1.0 (https://github.com/pritish-codes/homebot)"
 	safeContact := sanitizeHeader(strings.TrimSpace(contact))
 	if len(safeContact) > 0 {
-		userAgent = "Homebox/1.0 (contact: " + safeContact + ")"
+		userAgent = "HomeBot/1.0 (contact: " + safeContact + ")"
 	}
 	req.Header.Set("User-Agent", userAgent)
 

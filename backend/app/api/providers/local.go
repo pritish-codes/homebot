@@ -3,7 +3,7 @@ package providers
 import (
 	"net/http"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"

@@ -148,6 +148,8 @@ describe("user should be able to create an item and add an attachment", () => {
         completedDate: faker.date.past().toISOString().slice(0, 10),
         scheduledDate: "",
         cost: faker.number.int(100).toString(),
+        isRecurring: false,
+        recurrenceIntervalMonths: 0,
       });
 
       expect(response.status).toBe(201);

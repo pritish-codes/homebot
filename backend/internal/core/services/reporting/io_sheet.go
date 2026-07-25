@@ -10,14 +10,14 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/data/types"
 	"github.com/rs/zerolog/log"
 	"github.com/samber/lo"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/types"
 )
 
 // IOSheet is the representation of a CSV/TSV sheet that is used for importing/exporting
-// items from homebox. It is used to read/write the data from/to a CSV/TSV file given
+// items from homebot. It is used to read/write the data from/to a CSV/TSV file given
 // the standard format of the file.
 //
 // See ExportCSVRow for the format of the data in the sheet.

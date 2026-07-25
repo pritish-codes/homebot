@@ -13,7 +13,7 @@ const buildStatusResponse = (demo: boolean) => ({
   latest: { date: new Date().toISOString(), version: "v0.0.0" },
   message: "",
   oidc: { allowLocal: true, autoRedirect: false, buttonText: "", enabled: false },
-  title: "Homebox",
+  title: "HomeBot",
   versions: [],
 });
 
@@ -54,7 +54,7 @@ test.describe.skip("Wipe Inventory", () => {
 
     await expect(
       page.getByText(
-        "Inventory, tags, locations and maintenance records cannot be wiped whilst Homebox is in demo mode.",
+        "Inventory, tags, locations and maintenance records cannot be wiped whilst HomeBot is in demo mode.",
         { exact: false }
       )
     ).toBeVisible();

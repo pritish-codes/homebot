@@ -26,7 +26,7 @@
 
   const { t } = useI18n();
 
-  useHead({ title: `HomeBox | ${t("collection.tabs.entity_types")}` });
+  useHead({ title: `HomeBot | ${t("collection.tabs.entity_types")}` });
 
   const api = useUserApi();
   const confirm = useConfirm();

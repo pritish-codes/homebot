@@ -10,8 +10,8 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "Homebox Team",
-            "url": "https://discord.homebox.software"
+            "name": "HomeBot Team",
+            "url": "https://github.com/pritish-codes/homebot"
         },
         "version": "{{.Version}}"
     },
@@ -4167,9 +4167,17 @@ const docTemplate = `{
                     "description": "ID of the ent.",
                     "type": "string"
                 },
+                "is_recurring": {
+                    "description": "IsRecurring holds the value of the \"is_recurring\" field.",
+                    "type": "boolean"
+                },
                 "name": {
                     "description": "Name holds the value of the \"name\" field.",
                     "type": "string"
+                },
+                "recurrence_interval_months": {
+                    "description": "RecurrenceIntervalMonths holds the value of the \"recurrence_interval_months\" field.",
+                    "type": "integer"
                 },
                 "scheduled_date": {
                     "description": "ScheduledDate holds the value of the \"scheduled_date\" field.",
@@ -5783,8 +5791,14 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "isRecurring": {
+                    "type": "boolean"
+                },
                 "name": {
                     "type": "string"
+                },
+                "recurrenceIntervalMonths": {
+                    "type": "integer"
                 },
                 "scheduledDate": {
                     "type": "string"
@@ -5807,8 +5821,14 @@ const docTemplate = `{
                 "description": {
                     "type": "string"
                 },
+                "isRecurring": {
+                    "type": "boolean"
+                },
                 "name": {
                     "type": "string"
+                },
+                "recurrenceIntervalMonths": {
+                    "type": "integer"
                 },
                 "scheduledDate": {
                     "type": "string"
@@ -5828,8 +5848,14 @@ const docTemplate = `{
                 "description": {
                     "type": "string"
                 },
+                "isRecurring": {
+                    "type": "boolean"
+                },
                 "name": {
                     "type": "string"
+                },
+                "recurrenceIntervalMonths": {
+                    "type": "integer"
                 },
                 "scheduledDate": {
                     "type": "string"
@@ -5852,6 +5878,9 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "isRecurring": {
+                    "type": "boolean"
+                },
                 "itemID": {
                     "type": "string"
                 },
@@ -5860,6 +5889,9 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                },
+                "recurrenceIntervalMonths": {
+                    "type": "integer"
                 },
                 "scheduledDate": {
                     "type": "string"
@@ -6656,7 +6688,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/api",
 	Schemes:          []string{"https", "http"},
-	Title:            "Homebox API",
+	Title:            "HomeBot API",
 	Description:      "Track, Manage, and Organize your Things.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

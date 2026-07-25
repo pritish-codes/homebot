@@ -11,17 +11,17 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/currencies"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/analytics"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/otel"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
-	"github.com/sysadminsmedia/homebox/backend/internal/web/mid"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/hasher"
+	"github.com/pritish-codes/homebot/backend/internal/core/currencies"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/analytics"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/otel"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/web/mid"
+	"github.com/pritish-codes/homebot/backend/pkgs/hasher"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -35,9 +35,9 @@ import (
 	"go.balki.me/anyhttp"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
-	_ "github.com/sysadminsmedia/homebox/backend/internal/data/migrations/postgres"
-	_ "github.com/sysadminsmedia/homebox/backend/internal/data/migrations/sqlite3"
-	_ "github.com/sysadminsmedia/homebox/backend/pkgs/cgofreesqlite"
+	_ "github.com/pritish-codes/homebot/backend/internal/data/migrations/postgres"
+	_ "github.com/pritish-codes/homebot/backend/internal/data/migrations/sqlite3"
+	_ "github.com/pritish-codes/homebot/backend/pkgs/cgofreesqlite"
 
 	_ "gocloud.dev/pubsub/awssnssqs"
 	_ "gocloud.dev/pubsub/azuresb"
@@ -76,18 +76,18 @@ func validatePostgresSSLMode(sslMode string) bool {
 	return validModes[strings.ToLower(strings.TrimSpace(sslMode))]
 }
 
-//	@title						Homebox API
+//	@title						HomeBot API
 //	@version					1.0
 //	@description				Track, Manage, and Organize your Things.
-//	@contact.name				Homebox Team
-//	@contact.url				https://discord.homebox.software
+//	@contact.name				HomeBot Team
+//	@contact.url				https://github.com/pritish-codes/homebot
 //	@schemes					https http
 //	@BasePath					/api
 //	@securityDefinitions.apikey	Bearer
 //	@in							header
 //	@name						Authorization
 //	@description				"Type 'Bearer TOKEN' to correctly set the API Key"
-//	@externalDocs.url			https://homebox.software/en/api
+//	@externalDocs.url			https://github.com/pritish-codes/homebot
 
 func main() {
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
@@ -98,7 +98,7 @@ func main() {
 		os.Exit(code)
 	}
 
-	cfg, err := config.New(build(), "Homebox inventory management system")
+	cfg, err := config.New(build(), "HomeBot inventory management system")
 	if err != nil {
 		panic(err)
 	}

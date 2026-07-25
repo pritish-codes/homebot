@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 )
 
 // maxNotifierRedirects caps redirect hops for outbound delivery, matching net/http's
@@ -20,7 +20,7 @@ const maxNotifierRedirects = 10
 // other blocked destination, and the follow-up hop is delivered without re-checking
 // the policy — bypassing the SSRF guards. Re-validating each hop closes that hole.
 //
-// This affects every http.DefaultClient consumer in the process, but in Homebox
+// This affects every http.DefaultClient consumer in the process, but in HomeBot
 // that is only shoutrrr: all other outbound HTTP clients (labelmaker, analytics,
 // otel, product search, the GitHub release check) are constructed explicitly. The
 // guard only rejects redirects whose target is blocked by policy; ordinary

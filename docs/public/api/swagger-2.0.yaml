@@ -672,9 +672,16 @@ definitions:
       id:
         description: ID of the ent.
         type: string
+      is_recurring:
+        description: IsRecurring holds the value of the "is_recurring" field.
+        type: boolean
       name:
         description: Name holds the value of the "name" field.
         type: string
+      recurrence_interval_months:
+        description: RecurrenceIntervalMonths holds the value of the "recurrence_interval_months"
+          field.
+        type: integer
       scheduled_date:
         description: ScheduledDate holds the value of the "scheduled_date" field.
         type: string
@@ -1793,8 +1800,12 @@ definitions:
         type: string
       id:
         type: string
+      isRecurring:
+        type: boolean
       name:
         type: string
+      recurrenceIntervalMonths:
+        type: integer
       scheduledDate:
         type: string
     type: object
@@ -1807,8 +1818,12 @@ definitions:
         type: string
       description:
         type: string
+      isRecurring:
+        type: boolean
       name:
         type: string
+      recurrenceIntervalMonths:
+        type: integer
       scheduledDate:
         type: string
     required:
@@ -1823,8 +1838,12 @@ definitions:
         type: string
       description:
         type: string
+      isRecurring:
+        type: boolean
       name:
         type: string
+      recurrenceIntervalMonths:
+        type: integer
       scheduledDate:
         type: string
     type: object
@@ -1839,12 +1858,16 @@ definitions:
         type: string
       id:
         type: string
+      isRecurring:
+        type: boolean
       itemID:
         type: string
       itemName:
         type: string
       name:
         type: string
+      recurrenceIntervalMonths:
+        type: integer
       scheduledDate:
         type: string
     type: object
@@ -2368,10 +2391,10 @@ definitions:
     type: object
 info:
   contact:
-    name: Homebox Team
-    url: https://discord.homebox.software
+    name: HomeBot Team
+    url: https://github.com/pritish-codes/homebot
   description: Track, Manage, and Organize your Things.
-  title: Homebox API
+  title: HomeBot API
   version: "1.0"
 paths:
   /v1/actions/create-missing-thumbnails:

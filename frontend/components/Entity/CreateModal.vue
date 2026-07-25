@@ -357,7 +357,7 @@
     }
   }
 
-  const LAST_TEMPLATE_KEY = "homebox:lastUsedTemplate";
+  const LAST_TEMPLATE_KEY = "homebot:lastUsedTemplate";
 
   const loading = ref(false);
   const focused = ref(false);

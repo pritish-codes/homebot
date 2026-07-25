@@ -4,7 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema/mixins"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema/mixins"
 )
 
 // APIKey holds the schema definition for static, user-issued API keys that

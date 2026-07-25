@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
 )
 
 // The APIKeyFunc type is an adapter to allow the use of ordinary

@@ -415,6 +415,8 @@ var (
 		{Name: "name", Type: field.TypeString, Size: 255},
 		{Name: "description", Type: field.TypeString, Nullable: true, Size: 2500},
 		{Name: "cost", Type: field.TypeFloat64, Default: 0},
+		{Name: "is_recurring", Type: field.TypeBool, Default: false},
+		{Name: "recurrence_interval_months", Type: field.TypeInt, Nullable: true},
 		{Name: "entity_id", Type: field.TypeUUID},
 	}
 	// MaintenanceEntriesTable holds the schema information for the "maintenance_entries" table.
@@ -425,7 +427,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "maintenance_entries_entities_maintenance_entries",
-				Columns:    []*schema.Column{MaintenanceEntriesColumns[8]},
+				Columns:    []*schema.Column{MaintenanceEntriesColumns[10]},
 				RefColumns: []*schema.Column{EntitiesColumns[0]},
 				OnDelete:   schema.Cascade,
 			},

@@ -490,8 +490,12 @@ export interface EntMaintenanceEntry {
   entity_id: string;
   /** ID of the ent. */
   id: string;
+  /** IsRecurring holds the value of the "is_recurring" field. */
+  is_recurring: boolean;
   /** Name holds the value of the "name" field. */
   name: string;
+  /** RecurrenceIntervalMonths holds the value of the "recurrence_interval_months" field. */
+  recurrence_interval_months: number;
   /** ScheduledDate holds the value of the "scheduled_date" field. */
   scheduled_date: Date | string;
   /** UpdatedAt holds the value of the "updated_at" field. */
@@ -1117,7 +1121,9 @@ export interface MaintenanceEntry {
   cost: string;
   description: string;
   id: string;
+  isRecurring: boolean;
   name: string;
+  recurrenceIntervalMonths: number;
   scheduledDate: Date | string;
 }
 
@@ -1126,7 +1132,9 @@ export interface MaintenanceEntryCreate {
   /** @example "0" */
   cost: string;
   description: string;
+  isRecurring: boolean;
   name: string;
+  recurrenceIntervalMonths: number;
   scheduledDate: Date | string;
 }
 
@@ -1135,7 +1143,9 @@ export interface MaintenanceEntryUpdate {
   /** @example "0" */
   cost: string;
   description: string;
+  isRecurring: boolean;
   name: string;
+  recurrenceIntervalMonths: number;
   scheduledDate: Date | string;
 }
 
@@ -1145,9 +1155,11 @@ export interface MaintenanceEntryWithDetails {
   cost: string;
   description: string;
   id: string;
+  isRecurring: boolean;
   itemID: string;
   itemName: string;
   name: string;
+  recurrenceIntervalMonths: number;
   scheduledDate: Date | string;
 }
 

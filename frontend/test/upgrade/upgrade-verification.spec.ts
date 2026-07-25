@@ -1,5 +1,5 @@
 /**
- * HomeBox Upgrade Verification Tests
+ * HomeBot Upgrade Verification Tests
  *
  * NOTE: These tests are ONLY meant to run in the upgrade-test workflow.
  * They require test data to be pre-created by the create-test-data.sh script.
@@ -41,7 +41,7 @@ test.beforeAll(() => {
   }
 });
 
-test.describe("HomeBox Upgrade Verification", () => {
+test.describe("HomeBot Upgrade Verification", () => {
   test("verify all users can log in", async ({ page }) => {
     // Test each user from the test data
     for (const user of testData.users || []) {

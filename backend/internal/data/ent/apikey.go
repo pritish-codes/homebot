@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/apikey"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/user"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/apikey"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/user"
 )
 
 // APIKey is the model entity for the APIKey schema.

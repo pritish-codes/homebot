@@ -7,11 +7,11 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	_ "github.com/sysadminsmedia/homebox/backend/pkgs/cgofreesqlite"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/faker"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	_ "github.com/pritish-codes/homebot/backend/pkgs/cgofreesqlite"
+	"github.com/pritish-codes/homebot/backend/pkgs/faker"
 )
 
 var (
@@ -65,7 +65,7 @@ func MainNoExit(m *testing.M) int {
 		Width:   0,
 		Height:  0,
 	})
-	err = os.MkdirAll(os.TempDir()+"/homebox", 0o755)
+	err = os.MkdirAll(os.TempDir()+"/homebot", 0o755)
 	if err != nil {
 		return 0
 	}

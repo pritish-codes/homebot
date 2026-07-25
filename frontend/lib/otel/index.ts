@@ -31,7 +31,7 @@ export interface OTelConfig {
 // Default configuration
 const defaultConfig: OTelConfig = {
   enabled: false,
-  serviceName: "homebox-frontend",
+  serviceName: "homebot-frontend",
   serviceVersion: "1.0.0",
   useBackendProxy: true,
   sampleRate: 1.0,
@@ -222,7 +222,7 @@ export function initializeOTel(config: Partial<OTelConfig> = {}): void {
 /**
  * Get a tracer for creating custom spans.
  */
-export function getTracer(name: string = "homebox-frontend") {
+export function getTracer(name: string = "homebot-frontend") {
   return trace.getTracer(name);
 }
 

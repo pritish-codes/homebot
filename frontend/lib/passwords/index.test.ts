@@ -3,7 +3,7 @@ import { PASSWORD_MIN_LENGTH, scorePassword } from ".";
 
 describe("scorePassword tests", () => {
   test("flagged words should return negative number", () => {
-    const flaggedWords = ["password", "homebox", "admin", "qwerty", "login"];
+    const flaggedWords = ["password", "homebot", "admin", "qwerty", "login"];
 
     for (const word of flaggedWords) {
       expect(scorePassword(word)).toBe(0);

@@ -54,12 +54,12 @@ func Test_MailerConf_RedactsPassword(t *testing.T) {
 func Test_Database_RedactsPasswordAndPubSubCreds(t *testing.T) {
 	c := Database{
 		Driver:           "postgres",
-		Username:         "homebox",
+		Username:         "homebot",
 		Password:         "dbpass",
 		Host:             "db",
 		Port:             "5432",
-		Database:         "homebox",
-		PubSubConnString: "postgres://pubuser:pubpass@db:5432/homebox?sslmode=disable",
+		Database:         "homebot",
+		PubSubConnString: "postgres://pubuser:pubpass@db:5432/homebot?sslmode=disable",
 	}
 
 	out, err := json.Marshal(c)

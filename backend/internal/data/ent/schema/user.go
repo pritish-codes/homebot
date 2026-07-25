@@ -8,7 +8,7 @@ import (
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
 	"github.com/google/uuid"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/schema/mixins"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/schema/mixins"
 )
 
 // User holds the schema definition for the User entity.

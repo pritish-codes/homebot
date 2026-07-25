@@ -3,8 +3,8 @@ package repo
 import (
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/pkgs/textutils"
 	"github.com/stretchr/testify/assert"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/textutils"
 )
 
 // Repeated test fixture; constant satisfies goconst across the test cases below.

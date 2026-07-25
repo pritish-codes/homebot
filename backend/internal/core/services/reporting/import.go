@@ -18,7 +18,7 @@ const (
 )
 
 var (
-	ErrNoHomeboxHeaders       = errors.New("no headers found")
+	ErrNoHomeBotHeaders       = errors.New("no headers found")
 	ErrMissingRequiredHeaders = errors.New("missing required headers `" + HeaderHBLocation + "` or `" + HeaderHBName + "`")
 )
 
@@ -78,11 +78,11 @@ func readRawCsv(r io.Reader) ([][]string, error) {
 	return reader.ReadAll()
 }
 
-// parseHeaders parses the homebox headers from the CSV file and returns a map of the headers
+// parseHeaders parses the homebot headers from the CSV file and returns a map of the headers
 // and their column index as well as a list of the field headers (HB.field.*) in the order
 // they appear in the CSV file
 //
-// It returns an error if no homebox headers are found
+// It returns an error if no homebot headers are found
 func parseHeaders(headers []string) (hbHeaders map[string]int, fieldHeaders []string, err error) {
 	hbHeaders = map[string]int{} // initialize map
 
@@ -104,7 +104,7 @@ func parseHeaders(headers []string) (hbHeaders map[string]int, fieldHeaders []st
 	}
 
 	if len(hbHeaders) == 0 {
-		return nil, nil, ErrNoHomeboxHeaders
+		return nil, nil, ErrNoHomeBotHeaders
 	}
 
 	return hbHeaders, fieldHeaders, nil

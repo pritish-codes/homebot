@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 	"golang.org/x/image/font/gofont/gobold"
 	"golang.org/x/image/font/gofont/gomedium"
 )

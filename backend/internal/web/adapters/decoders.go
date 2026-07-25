@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/schema"
 	"github.com/hay-kot/httpkit/server"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
 )
 
 var queryDecoder = schema.NewDecoder()

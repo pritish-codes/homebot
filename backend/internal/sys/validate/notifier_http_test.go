@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 // redirectTo builds an http.Request for a redirect target so the guard can be

@@ -13,6 +13,14 @@
         <DatePicker v-model="entry.scheduledDate" date-only :label="$t('maintenance.modal.scheduled_date')" />
         <FormTextArea v-model="entry.description" :label="$t('maintenance.modal.notes')" />
         <FormTextField v-model="entry.cost" autofocus :label="$t('maintenance.modal.cost')" />
+        <FormCheckbox v-model="entry.isRecurring" :label="$t('maintenance.modal.is_recurring')" />
+        <FormTextField
+          v-if="entry.isRecurring"
+          v-model="entry.recurrenceIntervalMonths"
+          type="number"
+          :min="1"
+          :label="$t('maintenance.modal.recurrence_interval_months')"
+        />
 
         <DialogFooter>
           <Button type="submit">
@@ -35,6 +43,7 @@
   import { useDialog } from "@/components/ui/dialog-provider";
   import FormTextField from "~/components/Form/TextField.vue";
   import FormTextArea from "~/components/Form/TextArea.vue";
+  import FormCheckbox from "~/components/Form/Checkbox.vue";
   import Button from "@/components/ui/button/Button.vue";
 
   const { closeDialog, registerOpenDialogCallback } = useDialog();
@@ -49,6 +58,8 @@
     scheduledDate: "",
     description: "",
     cost: "",
+    isRecurring: false,
+    recurrenceIntervalMonths: 0,
     itemIds: null as string[] | null,
   });
 
@@ -74,6 +85,8 @@
           scheduledDate: entry.scheduledDate,
           description: entry.description,
           cost: parseFloat(entry.cost) ? entry.cost : "0",
+          isRecurring: entry.isRecurring,
+          recurrenceIntervalMonths: entry.isRecurring ? entry.recurrenceIntervalMonths : 0,
         });
 
         if (error) {
@@ -97,6 +110,8 @@
       scheduledDate: entry.scheduledDate,
       description: entry.description,
       cost: parseFloat(entry.cost) ? entry.cost : "0",
+      isRecurring: entry.isRecurring,
+      recurrenceIntervalMonths: entry.isRecurring ? entry.recurrenceIntervalMonths : 0,
     });
 
     if (error) {
@@ -117,6 +132,8 @@
           entry.scheduledDate = "";
           entry.description = "";
           entry.cost = "";
+          entry.isRecurring = false;
+          entry.recurrenceIntervalMonths = 0;
           entry.itemIds = typeof params.itemId === "string" ? [params.itemId] : params.itemId;
           break;
         case "update":
@@ -128,6 +145,8 @@
           entry.scheduledDate = (params.maintenanceEntry.scheduledDate as string) ?? "";
           entry.description = params.maintenanceEntry.description;
           entry.cost = params.maintenanceEntry.cost;
+          entry.isRecurring = params.maintenanceEntry.isRecurring ?? false;
+          entry.recurrenceIntervalMonths = params.maintenanceEntry.recurrenceIntervalMonths ?? 0;
           entry.itemIds = null;
           break;
         case "duplicate":
@@ -137,6 +156,8 @@
           entry.scheduledDate = "";
           entry.description = params.maintenanceEntry.description;
           entry.cost = params.maintenanceEntry.cost;
+          entry.isRecurring = params.maintenanceEntry.isRecurring ?? false;
+          entry.recurrenceIntervalMonths = params.maintenanceEntry.recurrenceIntervalMonths ?? 0;
           entry.itemIds = [params.itemId];
           break;
       }

@@ -21,13 +21,13 @@ import (
 	"github.com/gen2brain/jpegxl"
 	"github.com/gen2brain/webp"
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/pkgs/utils"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/utils"
 	"github.com/zeebo/blake3"
 	"go.opentelemetry.io/otel"
 	"golang.org/x/image/draw"
@@ -143,7 +143,7 @@ func (r *AttachmentRepo) bucketLocalDir() (string, error) {
 	if !strings.HasPrefix(cs, "file://") {
 		return "", nil
 	}
-	// Homebox-specific shortcut for "relative to cwd".
+	// HomeBot-specific shortcut for "relative to cwd".
 	if strings.HasPrefix(cs, "file:///./") {
 		return filepath.Abs(strings.TrimPrefix(cs, "file:///./"))
 	}
@@ -159,7 +159,7 @@ func (r *AttachmentRepo) bucketLocalDir() (string, error) {
 	return filepath.Abs(raw)
 }
 
-// MigrateLegacyFlatPaths renames attachment files written by older homebox
+// MigrateLegacyFlatPaths renames attachment files written by older homebot
 // versions on Windows from a flat-escaped layout into a real subdirectory
 // layout. It is a no-op when the storage backend is not file:// or when no
 // matching files are found, so it is safe to run on every startup. Callers

@@ -13,12 +13,12 @@ import (
 	"github.com/stretchr/testify/require"
 	"gocloud.dev/blob"
 
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/entity"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/group"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/predicate"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/tag"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/entity"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/group"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/predicate"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/tag"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
 )
 
 func tagInGroup(gid uuid.UUID) predicate.Tag {
@@ -248,7 +248,7 @@ func TestCSVExportImportPreservesItemParent(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	rows, err := tSvc.Entities.ExportCSV(ctx, src.ID, "https://homebox.example")
+	rows, err := tSvc.Entities.ExportCSV(ctx, src.ID, "https://homebot.example")
 	require.NoError(t, err)
 
 	header := rows[0]

@@ -12,21 +12,21 @@ import (
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/pressly/goose/v3"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services/reporting/eventbus"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/migrations"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/core/services/reporting/eventbus"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/migrations"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 )
 
-// runResetPasswordCLI handles `homebox reset-password --email=...`. It mints a
+// runResetPasswordCLI handles `homebot reset-password --email=...`. It mints a
 // one-time reset link and prints it to stdout. This is the escape hatch for
 // installations without SMTP, or for debugging the password matching path
 // itself — the cases where the email-based flow can't help.
 //
 // Returns true when it consumed the command (and the caller should exit), so
-// `homebox` with no subcommand still falls through to the server.
+// `homebot` with no subcommand still falls through to the server.
 func runResetPasswordCLI(args []string) (handled bool, exitCode int) {
 	if len(args) < 2 || args[1] != "reset-password" {
 		return false, 0
@@ -35,7 +35,7 @@ func runResetPasswordCLI(args []string) (handled bool, exitCode int) {
 	fs := flag.NewFlagSet("reset-password", flag.ContinueOnError)
 	email := fs.String("email", "", "Email address of the account to reset")
 	fs.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: homebox reset-password --email=<address>")
+		fmt.Fprintln(os.Stderr, "Usage: homebot reset-password --email=<address>")
 		fmt.Fprintln(os.Stderr)
 		fmt.Fprintln(os.Stderr, "Generates a one-time password reset link for the given account and")
 		fmt.Fprintln(os.Stderr, "prints it to stdout. The link expires in one hour and can be used once.")
@@ -52,7 +52,7 @@ func runResetPasswordCLI(args []string) (handled bool, exitCode int) {
 		return true, 2
 	}
 
-	cfg, err := config.New(build(), "Homebox inventory management system")
+	cfg, err := config.New(build(), "HomeBot inventory management system")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to load config: %v\n", err)
 		return true, 1

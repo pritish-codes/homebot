@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc"

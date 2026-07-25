@@ -8,11 +8,11 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/attachment"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/attachment"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 )
 
 func TestMimeTypeForSourceType(t *testing.T) {
@@ -414,14 +414,14 @@ func TestAttachmentRepo_PathNormalization(t *testing.T) {
 func TestAttachmentRepo_MigrateLegacyFlatPaths(t *testing.T) {
 	root := t.TempDir()
 
-	// Legacy flat-encoded files written by pre-v0.22.1 homebox on Windows.
+	// Legacy flat-encoded files written by pre-v0.22.1 homebot on Windows.
 	legacy1 := ".data__0x5c__eb6bf410-a1a8-478d-a803-ca3948368a0c__0x5c__documents__0x5c__hash1.png"
 	legacy2 := ".data__0x5c__eb6bf410-a1a8-478d-a803-ca3948368a0c__0x5c__documents__0x5c__hash2.png"
 	require.NoError(t, os.WriteFile(filepath.Join(root, legacy1), []byte("one"), 0o644))
 	require.NoError(t, os.WriteFile(filepath.Join(root, legacy2), []byte("two"), 0o644))
 
 	// Unrelated file at the bucket root must be left alone.
-	other := filepath.Join(root, "homebox.db")
+	other := filepath.Join(root, "homebot.db")
 	require.NoError(t, os.WriteFile(other, []byte("db"), 0o644))
 
 	r := &AttachmentRepo{storage: config.Storage{ConnString: "file://" + root, PrefixPath: ".data"}}

@@ -12,13 +12,13 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/hay-kot/httpkit/errchain"
+	"github.com/pritish-codes/homebot/backend/app/api/handlers/debughandlers"
+	v1 "github.com/pritish-codes/homebot/backend/app/api/handlers/v1"
+	"github.com/pritish-codes/homebot/backend/app/api/providers"
+	docs "github.com/pritish-codes/homebot/backend/app/api/static/docs"
+	"github.com/pritish-codes/homebot/backend/internal/data/ent/authroles"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
 	httpSwagger "github.com/swaggo/http-swagger/v2" // http-swagger middleware
-	"github.com/sysadminsmedia/homebox/backend/app/api/handlers/debughandlers"
-	v1 "github.com/sysadminsmedia/homebox/backend/app/api/handlers/v1"
-	"github.com/sysadminsmedia/homebox/backend/app/api/providers"
-	docs "github.com/sysadminsmedia/homebox/backend/app/api/static/docs"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent/authroles"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
 )
 
 const prefix = "/api"

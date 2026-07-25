@@ -7,10 +7,10 @@ import (
 	"testing"
 
 	"github.com/nicholas-fedor/shoutrrr"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
+	"github.com/pritish-codes/homebot/backend/internal/sys/validate"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/validate"
 )
 
 // startVictimAndRedirector spins up two loopback servers: a "victim" that records
@@ -49,7 +49,7 @@ func TestNotifierRedirectSSRF_Unguarded(t *testing.T) {
 
 	notifierURL, victimHits := startVictimAndRedirector(t)
 
-	err := shoutrrr.Send(notifierURL, "Test message from Homebox")
+	err := shoutrrr.Send(notifierURL, "Test message from HomeBot")
 	require.NoError(t, err)
 	assert.Equal(t, int32(1), victimHits(), "unguarded: redirect to loopback victim IS followed (SSRF)")
 }
@@ -64,7 +64,7 @@ func TestNotifierRedirectSSRF_Guarded(t *testing.T) {
 
 	notifierURL, victimHits := startVictimAndRedirector(t)
 
-	err := shoutrrr.Send(notifierURL, "Test message from Homebox")
+	err := shoutrrr.Send(notifierURL, "Test message from HomeBot")
 	require.Error(t, err, "guarded: redirect to loopback must be refused and the send must fail")
 	assert.Equal(t, int32(0), victimHits(), "guarded: the blocked redirect target must never be reached")
 }

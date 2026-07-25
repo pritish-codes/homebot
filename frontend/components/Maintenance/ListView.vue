@@ -111,6 +111,8 @@
       scheduledDate: (maintenanceEntry.scheduledDate as string) ?? "",
       description: maintenanceEntry.description,
       cost: maintenanceEntry.cost,
+      isRecurring: maintenanceEntry.isRecurring,
+      recurrenceIntervalMonths: maintenanceEntry.recurrenceIntervalMonths,
     });
     if (error) {
       toast.error(t("maintenance.toast.failed_to_update"));

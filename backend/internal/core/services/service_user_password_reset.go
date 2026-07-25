@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/pritish-codes/homebot/backend/internal/data/ent"
+	"github.com/pritish-codes/homebot/backend/internal/data/repo"
+	"github.com/pritish-codes/homebot/backend/pkgs/hasher"
+	"github.com/pritish-codes/homebot/backend/pkgs/mailer"
 	"github.com/rs/zerolog/log"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/ent"
-	"github.com/sysadminsmedia/homebox/backend/internal/data/repo"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/hasher"
-	"github.com/sysadminsmedia/homebox/backend/pkgs/mailer"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 )
@@ -237,12 +237,12 @@ func (svc *UserService) createResetToken(ctx context.Context, email string) (str
 }
 
 func (svc *UserService) sendResetEmail(usr repo.UserOut, link string) error {
-	subject := "Reset your Homebox password"
+	subject := "Reset your HomeBot password"
 	body := buildResetEmailBody(usr.Name, link)
 
 	msg := mailer.NewMessageBuilder().
 		SetTo(usr.Name, usr.Email).
-		SetFrom("Homebox", svc.mailer.From).
+		SetFrom("HomeBot", svc.mailer.From).
 		SetSubject(subject).
 		SetBody(body).
 		Build()
@@ -264,12 +264,12 @@ func buildResetEmailBody(name, link string) string {
 	return fmt.Sprintf(`<!doctype html>
 <html><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.5; color: #1f2937;">
 <p>Hi %s,</p>
-<p>Someone (hopefully you) requested a password reset for your Homebox account. Click the link below to choose a new password. The link will expire in one hour and can only be used once.</p>
+<p>Someone (hopefully you) requested a password reset for your HomeBot account. Click the link below to choose a new password. The link will expire in one hour and can only be used once.</p>
 <p><a href="%s" style="display: inline-block; padding: 10px 18px; background: #0ea5e9; color: white; text-decoration: none; border-radius: 6px;">Reset password</a></p>
 <p>If the button doesn't work, paste this URL into your browser:</p>
 <p style="word-break: break-all;"><code>%s</code></p>
 <p>If you didn't request this, you can ignore this email — your password won't change.</p>
-<p>— Homebox</p>
+<p>— HomeBot</p>
 </body></html>`, htmlEscape(name), htmlEscape(link), htmlEscape(link))
 }
 

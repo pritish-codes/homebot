@@ -13,10 +13,10 @@ import (
 	"time"
 
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/pritish-codes/homebot/backend/internal/core/services"
+	"github.com/pritish-codes/homebot/backend/internal/sys/config"
 	"github.com/rs/zerolog/log"
 	"github.com/samber/lo"
-	"github.com/sysadminsmedia/homebox/backend/internal/core/services"
-	"github.com/sysadminsmedia/homebox/backend/internal/sys/config"
 	"golang.org/x/oauth2"
 )
 

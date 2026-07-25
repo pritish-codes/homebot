@@ -24,8 +24,8 @@ type Data struct {
 func Send(version, buildInfo string) error {
 	hostData, _ := host.Info()
 	analytics := Data{
-		Domain: "homebox.software",
-		URL:    "https://homebox.software/stats",
+		Domain: "homebot.software",
+		URL:    "https://homebot.software/stats",
 		Name:   "stats",
 		Props: map[string]interface{}{
 			"version":          version + "/" + buildInfo,
@@ -51,7 +51,7 @@ func Send(version, buildInfo string) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "Homebox/"+version+"/(https://homebox.software)")
+	req.Header.Set("User-Agent", "HomeBot/"+version+"/(https://homebot.software)")
 
 	client := &http.Client{
 		Timeout: 10 * time.Second,
