@@ -53,6 +53,28 @@ mkdir -p /DATA/AppData/homebot
 
 ## 5. Create the compose file
 
+A few deliberate choices here, addressed up front:
+
+- **`homebot` stays on `:latest`.** This is the one image that *must* track
+  latest — Watchtower's whole job is noticing when `:latest` changes and
+  redeploying. Pinning it to a fixed tag would break the auto-deploy loop
+  entirely. Everything else (Watchtower itself, cloudflared) is pinned,
+  since those are infrastructure you don't want silently changing under you.
+  Check current stable tags before deploying and adjust if newer:
+  - Watchtower: <https://github.com/containrrr/watchtower/releases>
+  - cloudflared: <https://hub.docker.com/r/cloudflare/cloudflared/tags>
+- **Container name instead of `localhost`.** If `cloudflared` runs as a
+  container on the same Docker network as `homebot`, use the container name
+  (`http://homebot:7745`) in the tunnel ingress instead of
+  `localhost:<host-port>`. This is more robust — it doesn't depend on the
+  host port mapping at all, and keeps working even if you change the
+  published port later. The compose file below creates a shared network and
+  includes `cloudflared` in it. **If your `cloudflared` is already managed
+  elsewhere** (separate compose file, a CasaOS app, a systemd service) and
+  moving it isn't worth the disruption, skip the `cloudflared` service below
+  and use `localhost:3100` in Section 7 instead — both are fine, the
+  container-name approach is just slightly more robust.
+
 ```bash
 mkdir -p ~/homebot
 cat > ~/homebot/docker-compose.yml <<'EOF'
@@ -64,16 +86,24 @@ services:
     ports:
       - "3100:7745"
     environment:
-      - TZ=America/New_York   # change to your timezone
+      - TZ=Asia/Kolkata
       - HBOX_LOGGER_LEVEL=info
     volumes:
       - /DATA/AppData/homebot:/data
+    networks:
+      - homebot-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "-O", "-", "http://localhost:7745/api/v1/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     labels:
       # scopes Watchtower to only this container
       - "com.centurylinklabs.watchtower.enable=true"
 
   watchtower:
-    image: containrrr/watchtower
+    image: containrrr/watchtower:1.7.1
     container_name: watchtower
     restart: unless-stopped
     volumes:
@@ -84,12 +114,34 @@ services:
       - WATCHTOWER_POLL_INTERVAL=300   # check every 5 minutes
       - WATCHTOWER_CLEANUP=true        # remove old images after update
     command: --interval 300
+
+  # Optional: only include this if cloudflared isn't already managed
+  # elsewhere. Delete this whole service block if you already have
+  # cloudflared running separately.
+  cloudflared:
+    image: cloudflare/cloudflared:2025.2.1
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=<your-tunnel-token>   # from Cloudflare Zero Trust dashboard
+    networks:
+      - homebot-net
+    depends_on:
+      homebot:
+        condition: service_healthy
+
+networks:
+  homebot-net:
+    driver: bridge
 EOF
 ```
 
 `WATCHTOWER_LABEL_ENABLE=true` + the label on the `homebot` service means
 Watchtower **only** manages this one container — it will not touch any other
-apps already running under CasaOS.
+apps already running under CasaOS. Watchtower itself and `cloudflared` (if
+included) are pinned to specific versions so they don't change without you
+choosing to bump them.
 
 ## 6. Start it
 
@@ -104,22 +156,32 @@ tunnel.
 
 ## 7. Cloudflare Tunnel ingress
 
-You already have `cloudflared` running. Add a new public hostname pointing at
-this container:
+Add a new public hostname pointing at this container. Which target you use
+depends on the choice you made in Section 5:
 
-- If you manage the tunnel via the Cloudflare dashboard (Zero Trust → Access →
-  Tunnels → your tunnel → Public Hostname):
-  - **Subdomain**: `homebot` (or whatever you want)
-  - **Domain**: your domain
+- **If you added the `cloudflared` service to the compose file above**
+  (same Docker network as `homebot`), point ingress at the container name —
+  no host port involved at all:
+  - **Service**: `HTTP` → `homebot:7745`
+- **If `cloudflared` runs separately** (not in this compose file), it isn't
+  on the same Docker network, so it has to go through the host's published
+  port instead:
   - **Service**: `HTTP` → `localhost:3100`
-- If you manage it via a local `config.yml` on the CasaOS box instead, add:
+
+Set this via whichever you already use to manage the tunnel:
+
+- Cloudflare dashboard (Zero Trust → Access → Tunnels → your tunnel →
+  Public Hostname): subdomain `homebot`, your domain, service as above
+- Local `config.yml` on the CasaOS box:
   ```yaml
   ingress:
     - hostname: homebot.yourdomain.com
-      service: http://localhost:3100
+      service: http://homebot:7745   # or http://localhost:3100, see above
     # ... your existing rules stay below this
   ```
-  then `sudo systemctl restart cloudflared` (or however you run it).
+  then `sudo systemctl restart cloudflared` (or however you run it) —
+  only needed if cloudflared runs outside this compose file. If it's the
+  compose service above, `docker compose restart cloudflared` instead.
 
 **Before making this public**: confirm password protection is enabled. Demo
 mode (`UNSAFE_DISABLE_PASSWORD_PROJECTION`) must NOT be set in your compose
