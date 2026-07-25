@@ -27,6 +27,10 @@ type BackgroundService struct {
 	notifierConfig *config.NotifierConf
 }
 
+// reminderLeadDays are the advance-warning offsets (in days) checked in
+// addition to items due/expiring today.
+var reminderLeadDays = []int{1, 7}
+
 func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 	// Get All Groups
 	groups, err := svc.repos.Groups.GetAllGroups(ctx, uuid.Nil)
@@ -34,21 +38,36 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 		return err
 	}
 
-	today := types.DateFromTime(time.Now())
+	now := time.Now()
+	today := types.DateFromTime(now)
 
 	for i := range groups {
 		group := groups[i]
 
-		entries, err := svc.repos.MaintEntry.GetScheduled(ctx, group.ID, today)
-		if err != nil {
+		bldr := strings.Builder{}
+		hasContent := false
+
+		if err := svc.appendMaintenanceSection(ctx, &bldr, &hasContent, group.ID, today, "today"); err != nil {
 			return err
 		}
 
-		if len(entries) == 0 {
+		for _, lead := range reminderLeadDays {
+			target := types.DateFromTime(now.AddDate(0, 0, lead))
+			label := fmt.Sprintf("in %d day(s) (%s)", lead, target.String())
+
+			if err := svc.appendMaintenanceSection(ctx, &bldr, &hasContent, group.ID, target, label); err != nil {
+				return err
+			}
+			if err := svc.appendWarrantySection(ctx, &bldr, &hasContent, group.ID, target, label); err != nil {
+				return err
+			}
+		}
+
+		if !hasContent {
 			log.Debug().
 				Str("group_name", group.Name).
 				Str("group_id", group.ID.String()).
-				Msg("No scheduled maintenance for today")
+				Msg("No reminders due for this group")
 			continue
 		}
 
@@ -65,18 +84,7 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 			continue
 		}
 
-		bldr := strings.Builder{}
-
-		bldr.WriteString("HomeBot Maintenance for (")
-		bldr.WriteString(today.String())
-		bldr.WriteString("):\n")
-
-		for i := range entries {
-			entry := entries[i]
-			bldr.WriteString(" - ")
-			bldr.WriteString(entry.Name)
-			bldr.WriteString("\n")
-		}
+		message := "HomeBot Reminders (" + today.String() + "):\n" + bldr.String()
 
 		var sendErrs []error
 		for i := range notifiers {
@@ -91,7 +99,7 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 				continue
 			}
 
-			err := shoutrrr.Send(notifiers[i].URL, bldr.String())
+			err := shoutrrr.Send(notifiers[i].URL, message)
 
 			if err != nil {
 				sendErrs = append(sendErrs, err)
@@ -103,6 +111,44 @@ func (svc *BackgroundService) SendNotifiersToday(ctx context.Context) error {
 		}
 	}
 
+	return nil
+}
+
+func (svc *BackgroundService) appendMaintenanceSection(
+	ctx context.Context, bldr *strings.Builder, hasContent *bool, groupID uuid.UUID, dt types.Date, label string,
+) error {
+	entries, err := svc.repos.MaintEntry.GetScheduled(ctx, groupID, dt)
+	if err != nil {
+		return err
+	}
+	if len(entries) == 0 {
+		return nil
+	}
+
+	*hasContent = true
+	bldr.WriteString("\nMaintenance due " + label + ":\n")
+	for i := range entries {
+		bldr.WriteString(" - " + entries[i].Name + "\n")
+	}
+	return nil
+}
+
+func (svc *BackgroundService) appendWarrantySection(
+	ctx context.Context, bldr *strings.Builder, hasContent *bool, groupID uuid.UUID, dt types.Date, label string,
+) error {
+	warranties, err := svc.repos.Entities.GetWarrantiesExpiringOn(ctx, groupID, dt)
+	if err != nil {
+		return err
+	}
+	if len(warranties) == 0 {
+		return nil
+	}
+
+	*hasContent = true
+	bldr.WriteString("\nWarranty expiring " + label + ":\n")
+	for i := range warranties {
+		bldr.WriteString(" - " + warranties[i].Name + "\n")
+	}
 	return nil
 }
 

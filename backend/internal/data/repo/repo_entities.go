@@ -2864,6 +2864,35 @@ func (r *EntityRepository) Tree(ctx context.Context, gid uuid.UUID, tq TreeQuery
 	return tree, nil
 }
 
+type ExpiringWarranty struct {
+	ID              uuid.UUID `json:"id"`
+	Name            string    `json:"name"`
+	WarrantyExpires time.Time `json:"warrantyExpires"`
+}
+
+// GetWarrantiesExpiringOn returns entities (excluding lifetime-warranty items)
+// whose warranty_expires falls on the given date, for the given group.
+func (r *EntityRepository) GetWarrantiesExpiringOn(ctx context.Context, gid uuid.UUID, dt types.Date) ([]ExpiringWarranty, error) {
+	entities, err := r.db.Entity.Query().
+		Where(
+			entity.HasGroupWith(group.ID(gid)),
+			entity.WarrantyExpires(dt.Time()),
+			entity.LifetimeWarranty(false),
+		).
+		All(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return lo.Map(entities, func(e *ent.Entity, _ int) ExpiringWarranty {
+		return ExpiringWarranty{
+			ID:              e.ID,
+			Name:            e.Name,
+			WarrantyExpires: e.WarrantyExpires,
+		}
+	}), nil
+}
+
 func ConvertEntitiesToTree(items []FlatTreeItem) []TreeItem {
 	itemMap := make(map[uuid.UUID]*TreeItem, len(items))
 
