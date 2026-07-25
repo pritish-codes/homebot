@@ -8,6 +8,7 @@
   import MdiPlus from "~icons/mdi/plus";
   import MdiPencil from "~icons/mdi/pencil";
   import MdiDelete from "~icons/mdi/delete";
+  import MdiWrench from "~icons/mdi/wrench";
   import { useDialog } from "@/components/ui/dialog-provider";
   import { Card } from "@/components/ui/card";
   import {
@@ -288,6 +289,14 @@
                 <span class="hidden md:inline">
                   {{ $t("components.location.create_item") }}
                 </span>
+              </Button>
+              <Button class="w-9 md:w-auto" as-child variant="outline">
+                <NuxtLink :to="`/location/${location.id}/maintenance`">
+                  <MdiWrench name="mdi-wrench" />
+                  <span class="hidden md:inline">
+                    {{ $t("global.maintenance") }}
+                  </span>
+                </NuxtLink>
               </Button>
               <Button class="w-9 md:w-auto" @click="goToEdit">
                 <MdiPencil name="mdi-pencil" />
